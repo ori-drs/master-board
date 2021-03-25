@@ -19,8 +19,8 @@ set(PROJECT_USE_CMAKE_EXPORT TRUE)
 SET(PROJECT_VERSION_COMPUTATION_METHODS ROS_PACKAGE_XML_FILE)
 
 # --- OPTIONS ----------------------------------------
-OPTION(BUILD_PYTHON_INTERFACE "Build the python binding" OFF)
-OPTION(PYTHON_STANDARD_LAYOUT "Enable standard Python package layout" ON)
+OPTION(BUILD_PYTHON_INTERFACE "Build the python binding" ON)
+OPTION(PYTHON_STANDARD_LAYOUT "Enable standard Python package layout" OFF)
 OPTION(PYTHON_DEB_LAYOUT "Enable Debian-style Python package layout" OFF)
 
 INCLUDE(cmake/base.cmake)
