@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<package>
+<package format="3">
     <name>master_board_sdk</name>
     <version>1.0.0</version>
     <description>
-        This project contains the sdk for the communication between a computer
+        This project contains the SDK for the communication between a computer
         and the master-board
     </description>
     <maintainer email="mnaveau@tue.mpg.de">Maximilien Naveau</maintainer>
@@ -11,7 +11,9 @@
   
     <buildtool_depend>cmake</buildtool_depend>
 
-    <depend>Boost</depend>
+    <depend>boost</depend>
 
-    <export></export>
+    <export>
+        <build_type>cmake</build_type>
+    </export>
 </package>
