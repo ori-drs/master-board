@@ -412,50 +412,60 @@ void MasterBoardInterface::PrintADC()
   }
   if (printed)
     printf("\n");
+  else
+    printf("no motor drivers connected\n");
 }
 
 void MasterBoardInterface::PrintMotors()
 {
   bool header_printed = 0;
+  bool motor_printed = 0;
   for (int i = 0; i < N_SLAVES; i++)
   {
-    if (!motor_drivers[i].is_connected)
-      continue;
-
     if (!header_printed)
     {
       printf("Motor | enabled | ready | IDXT | Index det |    position   |    velocity   |    current    |\n");
       header_printed = 1;
     }
 
+    if (!motor_drivers[i].is_connected)
+      continue;
+
     printf("%5.2d | ", 2 * i);
     motors[2 * i].Print();
     printf("%5.2d | ", 2 * i + 1);
     motors[2 * i + 1].Print();
+    motor_printed = 1;
   }
   if (header_printed)
     printf("\n");
+  if (!motor_printed)
+    printf("no motors connected\n");
 }
 
 void MasterBoardInterface::PrintMotorDrivers()
 {
   bool header_printed = 0;
+  bool motor_driver_printed = 0;
   for (int i = 0; i < N_SLAVES; i++)
   {
-    if (!motor_drivers[i].is_connected)
-      continue;
-
     if (!header_printed)
     {
       printf("Motor Driver | Connected | Enabled | Error |\n");
       header_printed = 1;
     }
 
+    if (!motor_drivers[i].is_connected)
+      continue;
+
     printf("%12.2d | ", i);
     motor_drivers[i].Print();
+    motor_driver_printed = 1;
   }
   if (header_printed)
     printf("\n");
+  if (!motor_driver_printed)
+    printf("no motor drivers connected\n");
 }
 
 void MasterBoardInterface::ResetTimeout()
@@ -582,3 +592,4 @@ void MasterBoardInterface::ResetPacketLossStats()
   nb_cmd_lost = 0;
   memset(histogram_lost_cmd_packets, 0, MAX_HIST * sizeof(int));
 }
+
