@@ -10,6 +10,8 @@ jobs:
         env:
           - {ROS_DISTRO: melodic}
           - {ROS_DISTRO: noetic}
+          - {ROS_DISTRO: foxy}
+          - {ROS_DISTRO: rolling}
     env:
       CCACHE_DIR: /github/home/.ccache # Enable ccache
     runs-on: ubuntu-latest
