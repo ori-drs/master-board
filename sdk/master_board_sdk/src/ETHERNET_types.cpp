@@ -19,10 +19,10 @@ int ETHERNET_packet::toBytes(uint8_t *bytes, int max_len) {
 	
 	assert(padded_len <= max_len); 
 
-	memcpy(bytes, &(this->data), correct_len);	
+	memcpy(bytes, &(this->data), (uint8_t)correct_len);
 	
 	if(padded_len > correct_len) {
-		memset(bytes + correct_len, 0, padded_len - correct_len);
+		memset(bytes + correct_len, 0, (uint8_t)(padded_len - correct_len));
 	}
 
 	return padded_len;
