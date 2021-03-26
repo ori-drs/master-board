@@ -53,6 +53,7 @@ SET(MASTER_BOARD_SRC
     src/ESPNOW_types.cpp
     src/ETHERNET_types.cpp
     src/Link_manager.cpp
+    src/logger.cpp
     src/master_board_interface.cpp
     src/motor.cpp
     src/motor_driver.cpp
