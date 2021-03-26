@@ -7,8 +7,10 @@
 
 #include "master_board_sdk/master_board_interface.h"
 #include "master_board_sdk/defines.h"
+#include "master_board_sdk/logger.h"
 
 #define N_SLAVES_CONTROLED 6
+#define N_MOTORS_PER_BOARD 2
 
 int main(int argc, char **argv)
 {
@@ -24,15 +26,30 @@ int main(int argc, char **argv)
 	double kp = 5.;
 	double kd = 0.1;
 	double iq_sat = 4.0;
-	double freq = 0.5;
-	double amplitude = M_PI;
+	double freq = 0.6;
+	double amplitude = 4*M_PI;
 	double init_pos[N_SLAVES * 2] = {0};
 	int state = 0;
+	bool flag_logging = false;  // enable (true) or disable (false) the logging
 
 	nice(-20); //give the process a high priority
 	printf("-- Main --\n");
 	MasterBoardInterface robot_if(argv[1]);
 	robot_if.Init();
+
+	Logger loggerIMU;	// create logger for IMU
+	Logger loggerMotor[N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD];   // create logger for motors
+	if(flag_logging) // if flag for logging is true
+	{
+		loggerIMU.createFile("example_IMU.log");  // create logger file
+		loggerIMU.initImuLog();	 // write header in log file
+		for (int i=0; i<N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD; i++)  // create files for motor logging
+		{
+			loggerMotor[i].createFile("example_Motor" + std::to_string(i) + ".log");
+			loggerMotor[i].initMotorLog();
+		}
+	}
+
 	//Initialisation, send the init commands
 	for (int i = 0; i < N_SLAVES_CONTROLED; i++)
 	{
@@ -102,6 +119,8 @@ int main(int argc, char **argv)
 				break;
 			case 1:
 				//closed loop, position
+				if(flag_logging)
+					loggerIMU.writeImuLog(t, robot_if);    // log imu data
 				for (int i = 0; i < N_SLAVES_CONTROLED * 2; i++)
 				{
 					if (i % 2 == 0)
@@ -124,6 +143,8 @@ int main(int argc, char **argv)
 						robot_if.motors[i].SetCurrentReference(0.);
 						robot_if.motors[i].SetPositionReference(ref);
 						robot_if.motors[i].SetVelocityReference(v_ref);
+						if(flag_logging)
+							loggerMotor[i].writeMotorLog(t,robot_if.motors[i]);  // log motor status
 					}
 				}
 				break;
