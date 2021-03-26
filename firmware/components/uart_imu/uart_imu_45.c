@@ -273,7 +273,7 @@ int imu_init()
     printf("direct mode\n");
     uart_write_bytes(UART_NUM, cmd0, sizeof(cmd0));
     // uart_flush_input(UART_NUM);
-    vTaskDelay(100);
+    vTaskDelay(10);
     printf(" intr_cpt:%d\n", intr_cpt);
   }
 
