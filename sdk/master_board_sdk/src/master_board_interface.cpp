@@ -535,6 +535,8 @@ void MasterBoardInterface::PrintStats()
   printf("\n\n");
 }
 
+imu_data_t MasterBoardInterface::GetIMU() { return imu_data; }
+
 uint32_t MasterBoardInterface::GetSensorsSent() { return nb_sensors_sent; }
 
 uint32_t MasterBoardInterface::GetSensorsLost() { return nb_sensors_lost; }

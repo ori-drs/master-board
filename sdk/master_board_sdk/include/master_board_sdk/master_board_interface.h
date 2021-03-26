@@ -41,6 +41,7 @@ public:
 	int GetSessionId();
 	int GetProtocolVersion();
 
+	imu_data_t GetIMU();
 	uint32_t GetSensorsSent();
 	uint32_t GetSensorsLost();
 	uint32_t GetCmdSent();
