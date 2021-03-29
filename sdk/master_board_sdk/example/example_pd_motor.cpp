@@ -26,7 +26,7 @@ int main(int argc, char **argv)
 	double t = 0;
 	double kp = 5.;
 	double kd = 0.1;
-	double iq_sat = 4.0;
+	double iq_sat = 0.0;
 	double freq = 0.6;
 	double amplitude = 4*M_PI;
 	double init_pos[N_SLAVES * 2] = {0};
@@ -44,64 +44,64 @@ int main(int argc, char **argv)
 	TrajectoryGenerator trajectoryGenerator;
 
 	motor_i = 0;
-	trajectoryParameters[motor_i].active = 0;
+	trajectoryParameters[motor_i].active = 1;
 	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 4*M_PI;
+	trajectoryParameters[motor_i].amplitude = 0.5*M_PI;
 
 	motor_i = 1;
-	trajectoryParameters[motor_i].active = 0;
+	trajectoryParameters[motor_i].active = 1;
 	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 4*M_PI;
+	trajectoryParameters[motor_i].amplitude = 0.5*M_PI;
 
 	motor_i = 2;
 	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 4*M_PI;
+	trajectoryParameters[motor_i].amplitude = 0*M_PI;
 
 	motor_i = 3;
 	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 4*M_PI;
+	trajectoryParameters[motor_i].amplitude = 0*M_PI;
 
 	motor_i = 4;
 	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 4*M_PI;
+	trajectoryParameters[motor_i].amplitude = 0*M_PI;
 
 	motor_i = 5;
 	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 4*M_PI;
+	trajectoryParameters[motor_i].amplitude = 0*M_PI;
 
 	motor_i = 6;
 	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 4*M_PI;
+	trajectoryParameters[motor_i].amplitude = 0*M_PI;
 
 	motor_i = 7;
 	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 4*M_PI;
+	trajectoryParameters[motor_i].amplitude = 0*M_PI;
 
 	motor_i = 8;
 	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 4*M_PI;
+	trajectoryParameters[motor_i].amplitude = 0*M_PI;
 
 	motor_i = 9;
 	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 4*M_PI;
+	trajectoryParameters[motor_i].amplitude = 0*M_PI;
 
 	motor_i = 10;
 	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 4*M_PI;
+	trajectoryParameters[motor_i].amplitude = 0*M_PI;
 
 	motor_i = 11;
 	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 4*M_PI;
+	trajectoryParameters[motor_i].amplitude = 0*M_PI;
 
 
 	nice(-20); //give the process a high priority
