@@ -229,13 +229,17 @@ int imu_init()
   
     // ************ commands for IMU 3DM-GX4-45 ************
     // default baud rate of the IMU is 115200 baud.
-    // 75 65 7f 04 04 10 01 02 74 bd      // Attempting to set communications mode to IMU Direct mode
-  const char cmd0[10] = {0x75, 0x65, 0x7f, 0x04, 0x04, 0x10, 0x01, 0x02, 0x74, 0xbd};
-    // 75 65 01 02 02 02 e1 c7 00         // Idling Device
-  // const char cmd1[9] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x02, 0xe1, 0xc7, 0x00};
-    // 75 65 01 02 02 01 e0 c6 00         // pinging device
-  // const char cmd2[9] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x01, 0xe0, 0xc6, 0x00};
-    // 75 65 0c 0a 0a 08 01 02 04 00 64 05 00 64 d6 62    // Setting the AHRS message format: acc+gyr scaled with 0x64 stream format at ????Hz
+    // 75 65 7F 04 04 10 01 02 74 BD      // Attempting to set communications mode to IMU Direct mode
+    // 75 65 7F 4 4 10 2 2 75 BF    // ask for mode 
+  const char cmd0[10] = {0x75, 0x65, 0x7F, 0x04, 0x04, 0x10, 0x01, 0x02, 0x74, 0xBD};
+  const char cmd1[10] = {0x75, 0x65, 0x7F, 0x04, 0x04, 0x10, 0x02, 0x02, 0x75, 0xBF};  
+    // 75 65 01 02 02 02 E1 C7          // Idling Device
+  const char cmd2[8] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x02, 0xE1, 0xC7};
+    // 75 65 01 02 02 01 E0 C6          // pinging device
+  const char cmd3[8] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x01, 0xE0, 0xC6};
+    // 75 65 0C 0A 0A 08 01 02 04 00 64 05 00 64 D6 62     // Setting the AHRS message format: acc+gyr scaled with 0x64 stream format at ????Hz
+  // const char cmd4[8] = {0x75, 0x65, 0x0C, 0x0A, 0x0A, 0x08, 0x01, 0x02, 0x04, 0x00, 0x64, 0x05, 0x00, 0x64, 0xD6, 0x62};
+
 
     // ************ commands for IMU 3DM-CX5-25 ************
     // 75 65 01 02 02 02 E1 C7                           // Put the Device in Idle Mode
@@ -246,9 +250,7 @@ int imu_init()
     // 75 65 0D 06 06 03 00 00 00 00 F6 E4               // set heading at 0
     // 75 65 01 02 02 06 E5 CB                           // Resume the Device (is it needed?)
   
-  
-
-  // const char cmd0[9] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x02, 0xE1, 0xC7, 0xBD};
+    // const char cmd0[9] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x02, 0xE1, 0xC7, 0xBD};
   // const char cmd1[16] = {}; //IMU 1000Hz
   // const char cmd2[16] = {0x75, 0x65, 0x0C, 0x0A, 0x0A, 0x0A, 0x01, 0x02, 0x05, 0x00, 0x01, 0x0D, 0x00, 0x01, 0x1b, 0xa3}; //EF RPY + LinACC 500Hz
 
@@ -272,8 +274,14 @@ int imu_init()
     // uart_write_bytes(UART_NUM, cmd1, sizeof(cmd1));
     printf("direct mode\n");
     uart_write_bytes(UART_NUM, cmd0, sizeof(cmd0));
-    // uart_flush_input(UART_NUM);
     vTaskDelay(10);
+    uart_write_bytes(UART_NUM, cmd1, sizeof(cmd1));
+    vTaskDelay(10);
+    uart_write_bytes(UART_NUM, cmd2, sizeof(cmd2));
+    vTaskDelay(10);
+    uart_write_bytes(UART_NUM, cmd3, sizeof(cmd3));
+    vTaskDelay(10);
+    uart_flush_input(UART_NUM);
     printf(" intr_cpt:%d\n", intr_cpt);
   }
 
