@@ -1,0 +1,1132 @@
+This log file was produced by the example test file from MIP as 
+the computer communicates with the IMU via COM port. It 
+also displays the sent commands in hex.
+
+
+
+
+mip_sdk_port_open
+Attempting to open port: /dev/ttyUSB0
+Port: /dev/ttyUSB0 opened successfully.
+----------------------------------------------------------------------
+Attempting to set communications mode to IMU Direct mode
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 7F 4 4 10 1 2 74 BD 
+Bytes sent via COM: 75 65 7F 4 4 10 2 2 75 BF 
+Communications mode IMU Direct.
+
+
+----------------------------------------------------------------------
+Idling Device
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 1 2 2 2 E1 C7 
+
+
+----------------------------------------------------------------------
+Pinging Device
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 1 2 2 1 E0 C6 
+
+
+----------------------------------------------------------------------
+Getting Device Information
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 1 2 2 3 E2 C8 
+
+
+Device Info:
+---------------------------------------------
+Model Name       =>       3DM-GX4-10
+Model Number     =>        6237-4230
+Serial Number    =>       6237.21051
+Lot Number       =>                 
+Options          =>        5g,300dps
+Firmware Version => 4.0.38
+
+
+
+----------------------------------------------------------------------
+Getting Supported descriptors
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 1 2 2 4 E3 C9 
+
+
+Supported descriptors:
+
+Descriptor Set: 01, Descriptor: 01
+Descriptor Set: 01, Descriptor: 02
+Descriptor Set: 01, Descriptor: 03
+Descriptor Set: 01, Descriptor: 04
+Descriptor Set: 01, Descriptor: 05
+Descriptor Set: 01, Descriptor: 06
+Descriptor Set: 01, Descriptor: 7e
+Descriptor Set: 0c, Descriptor: 01
+Descriptor Set: 0c, Descriptor: 06
+Descriptor Set: 0c, Descriptor: 08
+Descriptor Set: 0c, Descriptor: 11
+Descriptor Set: 0c, Descriptor: 30
+Descriptor Set: 0c, Descriptor: 37
+Descriptor Set: 0c, Descriptor: 38
+Descriptor Set: 0c, Descriptor: 39
+Descriptor Set: 0c, Descriptor: 3e
+Descriptor Set: 0c, Descriptor: 3a
+Descriptor Set: 0c, Descriptor: 3b
+Descriptor Set: 0c, Descriptor: 64
+Descriptor Set: 7f, Descriptor: 01
+Descriptor Set: 7f, Descriptor: 10
+Descriptor Set: 7f, Descriptor: 11
+Descriptor Set: 80, Descriptor: 01
+Descriptor Set: 80, Descriptor: 02
+Descriptor Set: 80, Descriptor: 04
+Descriptor Set: 80, Descriptor: 05
+Descriptor Set: 80, Descriptor: 07
+Descriptor Set: 80, Descriptor: 08
+Descriptor Set: 80, Descriptor: 0d
+Descriptor Set: 80, Descriptor: 0e
+Descriptor Set: 80, Descriptor: 12
+Descriptor Set: 80, Descriptor: 14
+Descriptor Set: 80, Descriptor: 03
+Descriptor Set: 80, Descriptor: 06
+Descriptor Set: 80, Descriptor: 16
+Descriptor Set: 80, Descriptor: 17
+
+
+----------------------------------------------------------------------
+Running Built In Test
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 1 2 2 5 E4 CA 
+
+BIT Result (should be 0x00000000) => 0x00000000
+
+
+
+----------------------------------------------------------------------
+Getting the AHRS datastream base rate
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C 2 2 6 F0 F7 
+
+AHRS Base Rate => 1000 Hz
+
+
+
+----------------------------------------------------------------------
+Requesting BASIC Status Report:
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C 5 5 64 18 5D 1 CA 63 
+Model Number: 					6237
+Status Selector: 				Basic Status Report
+Status Flags: 					0x00000000
+System Millisecond Timer Count: 		3211405 ms
+
+Requesting DIAGNOSTIC Status Report:
+Bytes sent via COM: 75 65 C 5 5 64 18 5D 2 CB 64 
+Model Number: 					6237
+Status Selector: 				Diagnostic Status Report
+Status Flags: 					0x00000000
+System Millisecond Timer Count: 		3211410 ms
+Magnetometer: 					DETECTED
+Pressure Sensor: 				DETECTED
+Gyro Range Reported: 				300 deg/s
+Accel Range Reported: 				5 G
+Magnetometer Range Reported: 			2.500000 Gs
+Pressure Range Reported: 			1260.000000 hPa
+Measured Internal Temperature: 			33.014343 degrees C
+Last Temperature Measured: 			3211398 ms
+Bad Temperature Sensor Detected: 		FALSE
+Number Received GPS Pulse-Per-Second Pulses: 	0 Pulses
+Time of Last GPS Pulse-Per-Second Pulse: 	0 ms
+Data Streaming Enabled: 			TRUE
+Number of Dropped Communication Packets: 	0 packets
+Communications Port Bytes Written: 		11586596 Bytes
+Communications Port Bytes Read: 		6902 Bytes
+Communications Port Write Overruns: 		0 Bytes
+Communications Port Read Overruns: 		0 Bytes
+
+
+----------------------------------------------------------------------
+Disabling Coning and Sculling compensation
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C 4 4 3E 1 0 2D 93 
+Reading Coning and Sculling compensation enabled state:
+Bytes sent via COM: 75 65 C 4 4 3E 2 0 2E 95 
+DISABLED
+
+Enabling Coning and Sculling compensation.
+Bytes sent via COM: 75 65 C 4 4 3E 1 1 2E 94 
+Reading Coning and Sculling compensation enabled state:
+Bytes sent via COM: 75 65 C 4 4 3E 2 0 2E 95 
+ENABLED
+
+
+
+----------------------------------------------------------------------
+Accel Bias Vector
+----------------------------------------------------------------------
+
+Setting Accel Bias Vector:
+bias_vector[0] = 1.000000
+bias_vector[1] = 2.000000
+bias_vector[2] = 3.000000
+
+Bytes sent via COM: 75 65 C F F 37 1 3F 80 0 0 40 0 0 0 40 40 0 0 BB A9 
+Reading current Accel Bias Vector:
+Bytes sent via COM: 75 65 C F F 37 2 0 0 0 0 0 0 0 0 0 0 0 0 3D 82 
+bias_vector[0] = 1.000000
+bias_vector[1] = 2.000000
+bias_vector[2] = 3.000000
+
+Resetting Accel Bias to default state.
+
+Bytes sent via COM: 75 65 C F F 37 5 0 0 0 0 0 0 0 0 0 0 0 0 40 A9 
+
+
+----------------------------------------------------------------------
+Gyro Bias Vector
+----------------------------------------------------------------------
+
+Setting Gyro Bias Vector:
+bias_vector[0] = 4.000000
+bias_vector[1] = 5.000000
+bias_vector[2] = 6.000000
+
+Bytes sent via COM: 75 65 C F F 38 1 40 80 0 0 40 A0 0 0 40 C0 0 0 DD A3 
+Reading current Gyro Bias Vector:
+Bytes sent via COM: 75 65 C F F 38 2 0 0 0 0 0 0 0 0 0 0 0 0 3E 90 
+bias_vector[0] = 4.000000
+bias_vector[1] = 5.000000
+bias_vector[2] = 6.000000
+
+Resetting Gyro Bias to default state.
+
+Bytes sent via COM: 75 65 C F F 38 5 0 0 0 0 0 0 0 0 0 0 0 0 41 B7 
+
+
+----------------------------------------------------------------------
+Performing Gyro Bias capture.
+Please keep device stationary during the 5 second gyro bias capture interval
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C 4 4 39 13 88 C2 30 
+Gyro Bias Captured:
+bias_vector[0] = -0.000066
+bias_vector[1] = 0.002115
+bias_vector[2] = 0.001239
+
+
+
+----------------------------------------------------------------------
+Setting the hard iron offset values
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C F F 3A 1 3F 80 0 0 40 0 0 0 40 40 0 0 BE D3 
+Bytes sent via COM: 75 65 C F F 3A 2 0 0 0 0 0 0 0 0 0 0 0 0 40 AC 
+Hard iron offset values successfully set.
+
+
+Loading the default hard iron offset values.
+
+Bytes sent via COM: 75 65 C F F 3A 5 0 0 0 0 0 0 0 0 0 0 0 0 43 D3 
+
+
+----------------------------------------------------------------------
+Setting the soft iron matrix values
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C 27 27 3B 1 0 0 0 0 3F 80 0 0 40 0 0 0 40 40 0 0 40 80 0 0 40 A0 0 0 40 C0 0 0 40 E0 0 0 41 0 0 0 F0 79 
+Bytes sent via COM: 75 65 C 27 27 3B 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 71 3A 
+Soft iron matrix values successfully set.
+
+
+Loading the default soft iron matrix values.
+
+Bytes sent via COM: 75 65 C 27 27 3B 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 74 A9 
+
+
+----------------------------------------------------------------------
+Setting the AHRS message format
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C A A 8 1 2 4 0 64 5 0 64 D6 62 
+
+
+----------------------------------------------------------------------
+Polling AHRS Data.
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C A A 1 0 2 4 0 0 5 0 0 6 27 
+
+
+----------------------------------------------------------------------
+Putting Device Into Standard Mode
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 7F 4 4 10 1 1 73 BC 
+Bytes sent via COM: 75 65 7F 4 4 10 2 1 74 BE 
+
+
+----------------------------------------------------------------------
+Idling Device
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 1 2 2 2 E1 C7 
+
+
+----------------------------------------------------------------------
+Pinging Device
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 1 2 2 1 E0 C6 
+
+
+----------------------------------------------------------------------
+Getting Device Information
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 1 2 2 3 E2 C8 
+Device Info:
+---------------------------------------------
+Model Name       =>       3DM-GX4-45
+Model Number     =>        6236-4220
+Serial Number    =>       6236.21051
+Lot Number       =>                 
+Options          =>        5g,300dps
+Firmware Version => 1.1.04
+
+
+
+----------------------------------------------------------------------
+Getting Supported descriptors
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 1 2 2 4 E3 C9 
+
+
+Supported descriptors:
+
+Descriptor Set: 01, Descriptor: 01
+Descriptor Set: 01, Descriptor: 02
+Descriptor Set: 01, Descriptor: 03
+Descriptor Set: 01, Descriptor: 04
+Descriptor Set: 01, Descriptor: 05
+Descriptor Set: 01, Descriptor: 06
+Descriptor Set: 01, Descriptor: 7e
+Descriptor Set: 0c, Descriptor: 01
+Descriptor Set: 0c, Descriptor: 02
+Descriptor Set: 0c, Descriptor: 03
+Descriptor Set: 0c, Descriptor: 06
+Descriptor Set: 0c, Descriptor: 07
+Descriptor Set: 0c, Descriptor: 08
+Descriptor Set: 0c, Descriptor: 09
+Descriptor Set: 0c, Descriptor: 0a
+Descriptor Set: 0c, Descriptor: 0b
+Descriptor Set: 0c, Descriptor: 11
+Descriptor Set: 0c, Descriptor: 20
+Descriptor Set: 0c, Descriptor: 30
+Descriptor Set: 0c, Descriptor: 37
+Descriptor Set: 0c, Descriptor: 38
+Descriptor Set: 0c, Descriptor: 39
+Descriptor Set: 0c, Descriptor: 3a
+Descriptor Set: 0c, Descriptor: 3b
+Descriptor Set: 0c, Descriptor: 3e
+Descriptor Set: 0c, Descriptor: 40
+Descriptor Set: 0c, Descriptor: 50
+Descriptor Set: 0c, Descriptor: 51
+Descriptor Set: 0c, Descriptor: 64
+Descriptor Set: 0d, Descriptor: 01
+Descriptor Set: 0d, Descriptor: 02
+Descriptor Set: 0d, Descriptor: 03
+Descriptor Set: 0d, Descriptor: 10
+Descriptor Set: 0d, Descriptor: 11
+Descriptor Set: 0d, Descriptor: 12
+Descriptor Set: 0d, Descriptor: 13
+Descriptor Set: 0d, Descriptor: 14
+Descriptor Set: 0d, Descriptor: 15
+Descriptor Set: 0d, Descriptor: 16
+Descriptor Set: 0d, Descriptor: 17
+Descriptor Set: 0d, Descriptor: 18
+Descriptor Set: 0d, Descriptor: 19
+Descriptor Set: 0d, Descriptor: 1a
+Descriptor Set: 0d, Descriptor: 1b
+Descriptor Set: 0d, Descriptor: 1c
+Descriptor Set: 0d, Descriptor: 1d
+Descriptor Set: 0d, Descriptor: 1e
+Descriptor Set: 0d, Descriptor: 1f
+Descriptor Set: 0d, Descriptor: 20
+Descriptor Set: 0d, Descriptor: 21
+Descriptor Set: 0d, Descriptor: 22
+Descriptor Set: 0d, Descriptor: 23
+Descriptor Set: 0d, Descriptor: 42
+Descriptor Set: 0d, Descriptor: 43
+Descriptor Set: 0d, Descriptor: 44
+Descriptor Set: 0d, Descriptor: 45
+Descriptor Set: 0d, Descriptor: 46
+Descriptor Set: 7f, Descriptor: 10
+Descriptor Set: 80, Descriptor: 04
+Descriptor Set: 80, Descriptor: 05
+Descriptor Set: 80, Descriptor: 06
+Descriptor Set: 80, Descriptor: 07
+Descriptor Set: 80, Descriptor: 08
+Descriptor Set: 80, Descriptor: 12
+Descriptor Set: 80, Descriptor: 17
+Descriptor Set: 80, Descriptor: 09
+Descriptor Set: 80, Descriptor: 0c
+Descriptor Set: 80, Descriptor: 0a
+Descriptor Set: 80, Descriptor: 10
+Descriptor Set: 80, Descriptor: 11
+Descriptor Set: 81, Descriptor: 03
+Descriptor Set: 81, Descriptor: 04
+Descriptor Set: 81, Descriptor: 05
+Descriptor Set: 81, Descriptor: 06
+Descriptor Set: 81, Descriptor: 07
+Descriptor Set: 81, Descriptor: 08
+Descriptor Set: 81, Descriptor: 09
+Descriptor Set: 81, Descriptor: 0a
+Descriptor Set: 81, Descriptor: 0b
+Descriptor Set: 81, Descriptor: 0c
+Descriptor Set: 81, Descriptor: 0d
+Descriptor Set: 81, Descriptor: 0e
+Descriptor Set: 81, Descriptor: 0f
+Descriptor Set: 82, Descriptor: 01
+Descriptor Set: 82, Descriptor: 02
+Descriptor Set: 82, Descriptor: 03
+Descriptor Set: 82, Descriptor: 04
+Descriptor Set: 82, Descriptor: 05
+Descriptor Set: 82, Descriptor: 06
+Descriptor Set: 82, Descriptor: 07
+Descriptor Set: 82, Descriptor: 08
+Descriptor Set: 82, Descriptor: 09
+Descriptor Set: 82, Descriptor: 0a
+Descriptor Set: 82, Descriptor: 0b
+Descriptor Set: 82, Descriptor: 0c
+Descriptor Set: 82, Descriptor: 0d
+Descriptor Set: 82, Descriptor: 0e
+Descriptor Set: 82, Descriptor: 0f
+Descriptor Set: 82, Descriptor: 10
+Descriptor Set: 82, Descriptor: 11
+Descriptor Set: 82, Descriptor: 12
+Descriptor Set: 82, Descriptor: 13
+Descriptor Set: 82, Descriptor: 14
+Descriptor Set: 82, Descriptor: 15
+Descriptor Set: 82, Descriptor: 16
+Descriptor Set: 82, Descriptor: 17
+Descriptor Set: 82, Descriptor: 18
+Descriptor Set: 82, Descriptor: 19
+Descriptor Set: 82, Descriptor: 1c
+Descriptor Set: 82, Descriptor: 20
+Descriptor Set: 82, Descriptor: 21
+Descriptor Set: 82, Descriptor: 30
+Descriptor Set: 82, Descriptor: 31
+
+
+----------------------------------------------------------------------
+Running Built In Test
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 1 2 2 5 E4 CA 
+
+BIT Result (should be 0x00000000) => 0x00040000
+
+
+
+----------------------------------------------------------------------
+Getting the AHRS datastream base rate
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C 2 2 6 F0 F7 
+
+AHRS Base Rate => 500 Hz
+
+
+----------------------------------------------------------------------
+Getting the GPS datastream base rate
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C 2 2 7 F1 F8 
+
+GPS Base Rate => 4 Hz
+
+
+----------------------------------------------------------------------
+Getting the Estimation Filter datastream base rate
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C 2 2 B F5 FC 
+
+FILTER Base Rate => 500 Hz
+
+
+----------------------------------------------------------------------
+Toggling Coning and Sculling compensation
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C 4 4 3E 1 0 2D 93 
+Reading Coning and Sculling compensation enabled state:
+Bytes sent via COM: 75 65 C 4 4 3E 2 0 2E 95 
+DISABLED
+
+Enabling Coning and Sculling compensation.
+Bytes sent via COM: 75 65 C 4 4 3E 1 1 2E 94 
+Reading Coning and Sculling compensation enabled state:
+Bytes sent via COM: 75 65 C 4 4 3E 2 0 2E 95 
+ENABLED
+
+
+
+----------------------------------------------------------------------
+Accel Bias Vector
+----------------------------------------------------------------------
+
+Setting Accel Bias Vector:
+bias_vector[0] = 1.000000
+bias_vector[1] = 2.000000
+bias_vector[2] = 3.000000
+
+Bytes sent via COM: 75 65 C F F 37 1 3F 80 0 0 40 0 0 0 40 40 0 0 BB A9 
+Reading current Accel Bias Vector:
+Bytes sent via COM: 75 65 C F F 37 2 0 0 0 0 0 0 0 0 0 0 0 0 3D 82 
+bias_vector[0] = 1.000000
+bias_vector[1] = 2.000000
+bias_vector[2] = 3.000000
+
+Resetting Accel Bias to default state.
+
+Bytes sent via COM: 75 65 C F F 37 5 0 0 0 0 0 0 0 0 0 0 0 0 40 A9 
+
+
+----------------------------------------------------------------------
+Gyro Bias Vector
+----------------------------------------------------------------------
+
+Setting Gyro Bias Vector:
+bias_vector[0] = 4.000000
+bias_vector[1] = 5.000000
+bias_vector[2] = 6.000000
+
+Bytes sent via COM: 75 65 C F F 38 1 40 80 0 0 40 A0 0 0 40 C0 0 0 DD A3 
+Reading current Gyro Bias Vector:
+Bytes sent via COM: 75 65 C F F 38 2 0 0 0 0 0 0 0 0 0 0 0 0 3E 90 
+bias_vector[0] = 4.000000
+bias_vector[1] = 5.000000
+bias_vector[2] = 6.000000
+
+Resetting Gyro Bias to default state.
+
+Bytes sent via COM: 75 65 C F F 38 5 0 0 0 0 0 0 0 0 0 0 0 0 41 B7 
+
+
+----------------------------------------------------------------------
+Performing Gyro Bias capture.
+Please keep device stationary during the 5 second gyro bias capture interval
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C 4 4 39 13 88 C2 30 
+Gyro Bias Captured:
+bias_vector[0] = 0.000039
+bias_vector[1] = 0.002028
+bias_vector[2] = 0.001098
+
+
+
+----------------------------------------------------------------------
+Setting the hard iron offset values
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C F F 3A 1 3F 80 0 0 40 0 0 0 40 40 0 0 BE D3 
+Bytes sent via COM: 75 65 C F F 3A 2 0 0 0 0 0 0 0 0 0 0 0 0 40 AC 
+Hard iron offset values successfully set.
+
+
+Loading the default hard iron offset values.
+
+Bytes sent via COM: 75 65 C F F 3A 5 0 0 0 0 0 0 0 0 0 0 0 0 43 D3 
+
+
+----------------------------------------------------------------------
+Setting the soft iron matrix values
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C 27 27 3B 1 0 0 0 0 3F 80 0 0 40 0 0 0 40 40 0 0 40 80 0 0 40 A0 0 0 40 C0 0 0 40 E0 0 0 41 0 0 0 F0 79 
+Bytes sent via COM: 75 65 C 27 27 3B 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 71 3A 
+Soft iron matrix values successfully set.
+
+
+Loading the default soft iron matrix values.
+
+Bytes sent via COM: 75 65 C 27 27 3B 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 74 A9 
+
+
+----------------------------------------------------------------------
+Setting the complementary filter values
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C D D 51 1 0 0 41 F0 0 0 41 F0 0 0 B4 6B 
+Bytes sent via COM: 75 65 C D D 51 2 0 0 0 0 0 0 0 0 0 0 53 A 
+Complementary filter values successfully set.
+
+
+Loading the default complementary filter values.
+
+Bytes sent via COM: 75 65 C D D 51 5 0 0 0 0 0 0 0 0 0 0 56 2B 
+
+
+----------------------------------------------------------------------
+Requesting BASIC Status Report
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C 5 5 64 18 5C 1 C9 61 
+Model Number: 					6236
+Status Selector: 				Basic Status Report
+Status Flags: 					0x00000000
+System State: 					System Running
+System Microsecond Timer Count: 		3270453 ms
+
+Requesting DIAGNOSTIC Status Report:
+Bytes sent via COM: 75 65 C 5 5 64 18 5C 2 CA 62 
+Model Number: 					6236
+Status Selector: 				Diagnostic Status Report
+Status Flags: 					0x00000000
+System Millisecond Timer Count: 		3270456 ms
+Number Received GPS Pulse-Per-Second Pulses: 	0 Pulses
+Time of Last GPS Pulse-Per-Second Pulse: 	0 ms
+IMU Streaming Enabled: 				TRUE
+GPS Streaming Enabled: 				TRUE
+FILTER Streaming Enabled: 				TRUE
+Number of Dropped IMU Packets: 			0 packets
+Number of Dropped GPS Packets: 			0 packets
+Number of Dropped FILTER Packets: 			0 packets
+Communications Port Bytes Written: 		33946 Bytes
+Communications Port Bytes Read: 		3631 Bytes
+Communications Port Write Overruns: 		0 Bytes
+Communications Port Read Overruns: 		0 Bytes
+IMU Parser Errors: 				0 Errors
+IMU Message Count: 				131445 Messages
+IMU Last Message Received: 			3270455 ms
+GPS Parser Errors: 				1 Errors
+GPS Message Count: 				13253 Messages
+GPS Last Message Received: 			3270256 ms
+
+
+----------------------------------------------------------------------
+Resetting the Filter
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 2 2 1 EC F6 
+
+
+----------------------------------------------------------------------
+Initializing the Filter with Euler angles
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D E E 2 0 0 0 0 0 0 0 0 0 0 0 0 5 6F 
+
+
+----------------------------------------------------------------------
+Resetting the Filter
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 2 2 1 EC F6 
+
+
+----------------------------------------------------------------------
+Initializing the Filter with a heading angle
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 6 6 3 0 0 0 0 F6 E4 
+
+
+----------------------------------------------------------------------
+Resetting the Filter
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 2 2 1 EC F6 
+
+
+----------------------------------------------------------------------
+Cycle through available Vehicle Dynamics Modes
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 4 4 10 1 3 3 12 
+Bytes sent via COM: 75 65 D 4 4 10 2 0 1 11 
+Vehicle dynamics mode successfully set to 3
+Bytes sent via COM: 75 65 D 4 4 10 1 2 2 11 
+Bytes sent via COM: 75 65 D 4 4 10 2 0 1 11 
+Vehicle dynamics mode successfully set to 2
+Bytes sent via COM: 75 65 D 4 4 10 1 1 1 10 
+Bytes sent via COM: 75 65 D 4 4 10 2 0 1 11 
+Vehicle dynamics mode successfully set to 1
+
+Loading the default vehicle dynamics mode
+
+Bytes sent via COM: 75 65 D 4 4 10 5 0 4 17 
+
+
+----------------------------------------------------------------------
+Setting the sensor to vehicle frame transformation
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D F F 11 1 3F 48 F5 C3 3E C8 F5 C3 3E 85 F9 2C FC 85 
+Bytes sent via COM: 75 65 D F F 11 2 0 0 0 0 0 0 0 0 0 0 0 0 18 7F 
+Transformation successfully set.
+
+
+Loading the default sensor to vehicle transformation.
+
+Bytes sent via COM: 75 65 D F F 11 5 0 0 0 0 0 0 0 0 0 0 0 0 1B A6 
+
+
+----------------------------------------------------------------------
+Setting the sensor to vehicle frame offset
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D F F 12 1 3F 80 0 0 40 0 0 0 40 40 0 0 97 B4 
+Bytes sent via COM: 75 65 D F F 12 2 0 0 0 0 0 0 0 0 0 0 0 0 19 8D 
+Offset successfully set.
+
+
+Loading the default sensor to vehicle offset.
+
+Bytes sent via COM: 75 65 D F F 12 5 0 0 0 0 0 0 0 0 0 0 0 0 1C B4 
+
+
+----------------------------------------------------------------------
+Setting the GPS antenna offset
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D F F 13 1 3F 80 0 0 40 0 0 0 40 40 0 0 98 C2 
+Bytes sent via COM: 75 65 D F F 13 2 0 0 0 0 0 0 0 0 0 0 0 0 1A 9B 
+Offset successfully set.
+
+
+Loading the default antenna offset.
+
+Bytes sent via COM: 75 65 D F F 13 5 0 0 0 0 0 0 0 0 0 0 0 0 1D C2 
+
+
+----------------------------------------------------------------------
+Cycling through Estimation Control Flags
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 5 5 14 1 FF FF 4 27 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF FE 3 26 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF FD 2 25 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF FC 1 24 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF FB 0 23 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF FA FF 22 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF F9 FE 21 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF F8 FD 20 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF F7 FC 1F 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF F6 FB 1E 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF F5 FA 1D 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF F4 F9 1C 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF F3 F8 1B 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF F2 F7 1A 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF F1 F6 19 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF F0 F5 18 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF EF F4 17 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF EE F3 16 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF ED F2 15 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF EC F1 14 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF EB F0 13 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF EA EF 12 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF E9 EE 11 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF E8 ED 10 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF E7 EC F 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF E6 EB E 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF E5 EA D 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF E4 E9 C 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF E3 E8 B 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF E2 E7 A 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF E1 E6 9 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+Bytes sent via COM: 75 65 D 5 5 14 1 FF E0 E5 8 
+Bytes sent via COM: 75 65 D 5 5 14 2 0 0 7 2D 
+
+
+Resetting Estimation Control Flags to default state.
+
+Bytes sent via COM: 75 65 D 5 5 14 5 0 0 A 36 
+
+
+----------------------------------------------------------------------
+Cycle through available GPS sources
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 4 4 15 1 2 7 20 
+Bytes sent via COM: 75 65 D 4 4 15 2 2 8 22 
+GPS source successfully set to 2
+Bytes sent via COM: 75 65 D 4 4 15 1 1 6 1F 
+Bytes sent via COM: 75 65 D 4 4 15 2 1 7 21 
+GPS source successfully set to 1
+
+
+Loading the default gps source.
+
+Bytes sent via COM: 75 65 D 4 4 15 5 0 9 26 
+
+
+----------------------------------------------------------------------
+Performing External GPS Update with externally supplied GPS information
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 4 4 15 1 2 7 20 
+Bytes sent via COM: 75 65 D 48 48 16 0 0 0 0 0 0 0 0 0 0 40 46 38 1 1F FB 1D 17 C0 52 46 CA C0 2 39 15 40 60 C0 F5 C0 76 7D 35 0 0 0 0 0 0 0 0 0 0 0 0 3D CC CC CD 3D CC CC CD 3D CC CC CD 3D CC CC CD 3D CC CC CD 3D CC CC CD D5 5 
+Bytes sent via COM: 75 65 D 4 4 15 1 1 6 1F 
+
+
+----------------------------------------------------------------------
+Performing External Heading Update with externally supplied heading information
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 4 4 18 1 3 B 2A 
+Bytes sent via COM: 75 65 D B B 17 0 0 0 0 3C 23 D7 A 1 55 3F 
+Bytes sent via COM: 75 65 D 4 4 18 5 0 C 2F 
+
+
+----------------------------------------------------------------------
+Cycle through available Heading sources
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 4 4 18 1 3 B 2A 
+Bytes sent via COM: 75 65 D 4 4 18 2 0 9 29 
+Heading source successfully set to 3
+Bytes sent via COM: 75 65 D 4 4 18 1 2 A 29 
+Bytes sent via COM: 75 65 D 4 4 18 2 0 9 29 
+Heading source successfully set to 2
+Bytes sent via COM: 75 65 D 4 4 18 1 1 9 28 
+Bytes sent via COM: 75 65 D 4 4 18 2 0 9 29 
+Heading source successfully set to 1
+Bytes sent via COM: 75 65 D 4 4 18 1 0 8 27 
+Bytes sent via COM: 75 65 D 4 4 18 2 0 9 29 
+Heading source successfully set to 0
+
+
+Loading the default heading source.
+
+Bytes sent via COM: 75 65 D 4 4 18 5 0 C 2F 
+
+
+----------------------------------------------------------------------
+Cycle through available auto-init values
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 4 4 19 1 1 A 2B 
+Bytes sent via COM: 75 65 D 4 4 19 2 0 A 2C 
+Auto-init successfully set to 1
+Bytes sent via COM: 75 65 D 4 4 19 1 0 9 2A 
+Bytes sent via COM: 75 65 D 4 4 19 2 0 A 2C 
+Auto-init successfully set to 0
+
+
+Loading the default auto-init value.
+
+Bytes sent via COM: 75 65 D 4 4 19 5 0 D 32 
+
+
+----------------------------------------------------------------------
+Setting the accel noise values
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D F F 1A 1 3D CC CC CD 3E 4C CC CD 3E 99 99 9A EF 19 
+Bytes sent via COM: 75 65 D F F 1A 2 0 0 0 0 0 0 0 0 0 0 0 0 21 FD 
+Accel noise values successfully set.
+
+
+Loading the default accel noise values.
+
+Bytes sent via COM: 75 65 D F F 1A 5 0 0 0 0 0 0 0 0 0 0 0 0 24 24 
+
+
+----------------------------------------------------------------------
+Setting the gyro noise values
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D F F 1B 1 3D CC CC CD 3E 4C CC CD 3E 99 99 9A F0 27 
+Bytes sent via COM: 75 65 D F F 1B 2 0 0 0 0 0 0 0 0 0 0 0 0 22 B 
+Gyro noise values successfully set.
+
+
+Loading the default gyro noise values.
+
+Bytes sent via COM: 75 65 D F F 1B 5 0 0 0 0 0 0 0 0 0 0 0 0 25 32 
+
+
+----------------------------------------------------------------------
+Setting the mag noise values
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D F F 42 1 3D CC CC CD 3E 4C CC CD 3E 99 99 9A 17 49 
+Bytes sent via COM: 75 65 D F F 42 2 0 0 0 0 0 0 0 0 0 0 0 0 49 2D 
+Mag noise values successfully set.
+
+
+Loading the default mag noise values.
+
+Bytes sent via COM: 75 65 D F F 42 5 0 0 0 0 0 0 0 0 0 0 0 0 4C 54 
+
+
+----------------------------------------------------------------------
+Setting the accel bias model values
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 1B 1B 1C 1 3D CC CC CD 3E 4C CC CD 3E 99 99 9A 3D CC CC CD 3E 4C CC CD 3E 99 99 9A D8 3E 
+Bytes sent via COM: 75 65 D 1B 1B 1C 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3B 51 
+Accel bias model values successfully set.
+
+
+Loading the default accel bias model values.
+
+Bytes sent via COM: 75 65 D 1B 1B 1C 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3E 9C 
+
+
+----------------------------------------------------------------------
+Setting the gyro bias model values
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 1B 1B 1D 1 3D CC CC CD 3E 4C CC CD 3E 99 99 9A 3D CC CC CD 3E 4C CC CD 3E 99 99 9A D9 58 
+Bytes sent via COM: 75 65 D 1B 1B 1D 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3C 6B 
+Gyro bias model values successfully set.
+
+
+Loading the default gyro bias model values.
+
+Bytes sent via COM: 75 65 D 1B 1B 1D 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3F B6 
+
+
+----------------------------------------------------------------------
+Setting Zero Velocity-Update threshold
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 8 8 1E 1 1 3D CC CC CD B9 77 
+Bytes sent via COM: 75 65 D 8 8 1E 2 0 0 0 0 0 17 BB 
+
+
+Resetting Zero Velocity Update Control to default parameters.
+
+Bytes sent via COM: 75 65 D 8 8 1E 5 0 0 0 0 0 1A CD 
+
+
+----------------------------------------------------------------------
+Applying External Heading Update with Timestamp
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 4 4 18 1 3 B 2A 
+Bytes sent via COM: 75 65 D 15 15 1F 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3D 4C CC CD 1 53 63 
+
+
+Resetting default heading update.
+
+Bytes sent via COM: 75 65 D 4 4 18 5 0 C 2F 
+
+
+----------------------------------------------------------------------
+Setting Zero Angular-Rate-Update threshold
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 8 8 20 1 1 3D 4C CC CD 3B 5 
+Bytes sent via COM: 75 65 D 8 8 20 2 0 0 0 0 0 19 C9 
+
+
+Resetting Zero Angular Rate Update Control to default parameters.
+
+Bytes sent via COM: 75 65 D 8 8 20 5 0 0 0 0 0 1C DB 
+
+
+----------------------------------------------------------------------
+Performing Tare Orientation Command
+(This will only pass if the internal GPS solution is valid)
+----------------------------------------------------------------------
+
+Re-initializing filter (required for tare)
+
+Bytes sent via COM: 75 65 D E E 2 0 0 0 0 0 0 0 0 0 0 0 0 5 6F 
+Bytes sent via COM: 75 65 D 4 4 21 1 1 12 43 
+ERROR: Failed Axis -  Roll Axis Bytes sent via COM: 75 65 D 4 4 21 1 2 13 44 
+ERROR: Failed Axis -  Pitch Axis Bytes sent via COM: 75 65 D 4 4 21 1 3 14 45 
+ERROR: Failed Axis -  Roll Axis  Pitch Axis Bytes sent via COM: 75 65 D 4 4 21 1 4 15 46 
+ERROR: Failed Axis -  Yaw Axis Bytes sent via COM: 75 65 D 4 4 21 1 5 16 47 
+ERROR: Failed Axis -  Roll Axis  Yaw Axis Bytes sent via COM: 75 65 D 4 4 21 1 6 17 48 
+ERROR: Failed Axis -  Pitch Axis  Yaw Axis Bytes sent via COM: 75 65 D 4 4 21 1 7 18 49 
+ERROR: Failed Axis -  Roll Axis  Pitch Axis  Yaw Axis 
+
+Restoring Orientation to default value.
+
+Bytes sent via COM: 75 65 D 4 4 21 5 0 15 4A 
+
+
+----------------------------------------------------------------------
+Performing Commanded Zero-Velocity Update
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 2 2 22 D 17 
+
+
+----------------------------------------------------------------------
+Performing Commanded Zero-Angular-Rate Update
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 2 2 23 E 18 
+
+
+----------------------------------------------------------------------
+Cycle through available declination sources
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 4 4 43 1 3 36 AB 
+Bytes sent via COM: 75 65 D 4 4 43 2 0 34 AA 
+Declination source successfully set to 3
+Bytes sent via COM: 75 65 D 4 4 43 1 2 35 AA 
+Bytes sent via COM: 75 65 D 4 4 43 2 0 34 AA 
+Declination source successfully set to 2
+Bytes sent via COM: 75 65 D 4 4 43 1 1 34 A9 
+Bytes sent via COM: 75 65 D 4 4 43 2 0 34 AA 
+Declination source successfully set to 1
+
+
+Loading the default declination source.
+
+Bytes sent via COM: 75 65 D 4 4 43 5 0 37 B0 
+
+
+----------------------------------------------------------------------
+Setting the accel magnitude error adaptive measurement values
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 1C 1C 44 1 0 41 20 0 0 C0 0 0 0 40 0 0 0 40 80 0 0 40 80 0 0 40 0 0 0 85 DB 
+Bytes sent via COM: 75 65 D 1C 1C 44 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 65 FD 
+accel magnitude error adaptive measurement values successfully set.
+
+
+Loading the default accel magnitude error adaptive measurement values.
+
+Bytes sent via COM: 75 65 D 1C 1C 44 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 68 4B 
+
+
+----------------------------------------------------------------------
+Setting the mag magnitude error adaptive measurement values
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 1C 1C 45 1 0 41 20 0 0 BF 80 0 0 3F 80 0 0 3F 80 0 0 3F 80 0 0 3D CC CC CD E4 7B 
+Bytes sent via COM: 75 65 D 1C 1C 45 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 66 18 
+mag magnitude error adaptive measurement values successfully set.
+
+
+Loading the default mag magnitude error adaptive measurement values.
+
+Bytes sent via COM: 75 65 D 1C 1C 45 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 69 66 
+
+
+----------------------------------------------------------------------
+Setting the mag dip angle error adaptive measurement values
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 D 14 14 46 1 0 41 20 0 0 3F C8 F5 C3 40 0 0 0 3D CC CC CD 58 47 
+Bytes sent via COM: 75 65 D 14 14 46 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 57 B3 
+mag dip angle error adaptive measurement values successfully set.
+
+
+Loading the default mag magnitude error adaptive measurement values.
+
+Bytes sent via COM: 75 65 D 14 14 46 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5A E9 
+
+
+----------------------------------------------------------------------
+Setting the AHRS message format
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C A A 8 1 2 4 0 32 5 0 32 72 68 
+
+
+----------------------------------------------------------------------
+Polling AHRS Data.
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C A A 1 0 2 4 0 0 5 0 0 6 27 
+0 FILTER (0 errors)    1 AHRS (0 errors)    0 GPS (0 errors) Packets
+
+----------------------------------------------------------------------
+Setting the GPS datastream format
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C D D 9 1 3 3 0 4 5 0 4 9 0 4 2A 41 
+
+
+----------------------------------------------------------------------
+Polling GPS Data.
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C D D 2 0 3 3 0 0 5 0 0 9 0 0 16 B2 
+0 FILTER (0 errors)    1 AHRS (0 errors)    1 GPS (0 errors) Packets
+
+----------------------------------------------------------------------
+Setting the Estimation Filter datastream format
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C D D A 1 3 1 0 32 2 0 32 5 0 32 AC 45 
+
+
+----------------------------------------------------------------------
+Polling Estimation Filter Data.
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C D D 3 0 3 1 0 0 2 0 0 5 0 0 E 8E 
+1 FILTER (0 errors)    1 AHRS (0 errors)    1 GPS (0 errors) Packets
+
+
+----------------------------------------------------------------------
+Enable the AHRS datastream
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C 5 5 11 1 1 1 4 1A 
+
+
+----------------------------------------------------------------------
+Enable the FILTER datastream
+----------------------------------------------------------------------
+
+Bytes sent via COM: 75 65 C 5 5 11 1 3 1 6 1E 
+
+
+----------------------------------------------------------------------
+Enable the GPS datastream
+----------------------------------------------------------------------
+Bytes sent via COM: 75 65 C 5 5 11 1 2 1 5 1C 
+
