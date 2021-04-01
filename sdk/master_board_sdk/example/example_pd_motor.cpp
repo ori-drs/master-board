@@ -26,7 +26,7 @@ int main(int argc, char **argv)
 	double t = 0;
 	double kp = 5.;
 	double kd = 0.1;
-	double iq_sat = 0.0;
+	double iq_sat = 1.5;
 	double freq = 0.6;
 	double amplitude = 4*M_PI;
 	double init_pos[N_SLAVES * 2] = {0};
@@ -34,74 +34,65 @@ int main(int argc, char **argv)
 	bool flag_logging = false;  // enable (true) or disable (false) the logging
 
 	// trajectory tracking
+	TrajectoryGenerator trajectoryGenerator;
 	struct TrajectoryParameters
 	{
-		bool active;
-		double freq;
-		double amplitude;
+		bool active = 0;
+		double freq = 0.6;
+		double amplitude = 3;
 	} trajectoryParameters[N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD];  // The variable p1 is declared with 'Point'
+
 	int motor_i = 0;
-	TrajectoryGenerator trajectoryGenerator;
 
-	motor_i = 0;
+
+	motor_i = 0;  // HRK
 	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 0.5*M_PI;
+	trajectoryParameters[motor_i].amplitude = 10;
 
-	motor_i = 1;
+	motor_i = 1;  // HLK
 	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 0.5*M_PI;
+	trajectoryParameters[motor_i].amplitude = -10;
 
-	motor_i = 2;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 0*M_PI;
+	motor_i = 2;  // HRHFE
+	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].amplitude = -3;
 
-	motor_i = 3;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 0*M_PI;
+	motor_i = 3;  // HLHFE
+	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].amplitude = 3;
 
-	motor_i = 4;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 0*M_PI;
+	motor_i = 4;  // HRHAA
+	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].amplitude = -3;
 
-	motor_i = 5;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 0*M_PI;
+	motor_i = 5;  // HLHAA
+	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].amplitude = -3;
 
-	motor_i = 6;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 0*M_PI;
 
-	motor_i = 7;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 0*M_PI;
+	motor_i = 6;  // FRHFE
+	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].amplitude = 3;
 
-	motor_i = 8;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 0*M_PI;
+	motor_i = 7;  // FLHFE
+	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].amplitude = -3;
 
-	motor_i = 9;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 0*M_PI;
+	motor_i = 8;  // FRHFE
+	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].amplitude = 10;
 
-	motor_i = 10;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 0*M_PI;
+	motor_i = 9;  // FLHFE
+	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].amplitude = -10;
 
-	motor_i = 11;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].freq = 0.6;
-	trajectoryParameters[motor_i].amplitude = 0*M_PI;
+	motor_i = 10;  // FRHAA
+	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].amplitude = -3;
+
+	motor_i = 11;  // FLHAA
+	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].amplitude = -3;
 
 
 	nice(-20); //give the process a high priority
@@ -196,33 +187,34 @@ int main(int argc, char **argv)
 					
 				for (int i = 0; i < N_SLAVES_CONTROLED * 2; i++)
 				{
-
 					if (i % 2 == 0)
 					{
-						if (!robot_if.motor_drivers[i/2].is_connected) printf("motor driver &d is not connected", i/2); // ignoring the motors of a disconnected slave
+						if (!robot_if.motor_drivers[i/2].is_connected) 
+						{
+							//printf("motor driver %d is not connected\n", i/2); // ignoring the motors of a disconnected slave
+							continue; 
+						}
 
 						// making sure that the transaction with the corresponding µdriver board succeeded
 						if (robot_if.motor_drivers[i / 2].error_code == 0xf)
 						{
-							printf("Transaction with SPI%d failed\n", i / 2);
+							// printf("Transaction with SPI%d failed\n", i / 2);
 							continue; //user should decide what to do in that case, here we ignore that motor
 						}
 					}
-
 					if (robot_if.motors[i].IsEnabled() && trajectoryParameters[i].active)
 					{
 
 						double ref = trajectoryGenerator.sinePos(init_pos[i], trajectoryParameters[i].amplitude, trajectoryParameters[i].freq, t);
 						double v_ref = trajectoryGenerator.sineVel(init_pos[i], trajectoryParameters[i].amplitude, trajectoryParameters[i].freq, t);
-
 						robot_if.motors[i].SetCurrentReference(0.);
 						robot_if.motors[i].SetPositionReference(ref);
 						robot_if.motors[i].SetVelocityReference(v_ref);
 						if(flag_logging)
 							loggerMotor[i].writeMotorLog(t,robot_if.motors[i]);  // log motor status
 					}
-					break;
 				}
+				break;
 			}
 			
 			if (cpt % 100 == 0)
