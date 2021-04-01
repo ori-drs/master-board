@@ -25,9 +25,9 @@ int main(int argc, char **argv)
 	double t = 0;
 	double kp = 5.;
 	double kd = 0.1;
-	double iq_sat = 4.0;
+	double iq_sat = 1.0;
 	double freq = 0.6;
-	double amplitude = 4*M_PI;
+	double amplitude = 0.5*M_PI;
 	double init_pos[N_SLAVES * 2] = {0};
 	int state = 0;
 	bool flag_logging = false;  // enable (true) or disable (false) the logging

@@ -26,72 +26,80 @@ int main(int argc, char **argv)
 	double t = 0;
 	double kp = 5.;
 	double kd = 0.1;
-	double iq_sat = 1.5;
+	double iq_sat = 5.0;
 	double freq = 0.6;
 	double amplitude = 4*M_PI;
 	double init_pos[N_SLAVES * 2] = {0};
 	int state = 0;
-	bool flag_logging = false;  // enable (true) or disable (false) the logging
+	bool flag_logging = true;  // enable (true) or disable (false) the logging
 
 	// trajectory tracking
 	TrajectoryGenerator trajectoryGenerator;
-	struct TrajectoryParameters
-	{
-		bool active = 0;
-		double freq = 0.6;
-		double amplitude = 3;
-	} trajectoryParameters[N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD];  // The variable p1 is declared with 'Point'
+	// struct TrajectoryParameters
+	// {
+	// 	bool active = 0;
+	// 	double freq = 0.6;
+	// 	double amplitude = 3;
+	// 	double phaseshift = 0;  // in rad
+	// }; 
+	TrajectoryParameters trajectoryParameters[N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD];  // The variable p1 is declared with 'Point'
 
 	int motor_i = 0;
 
 
 	motor_i = 0;  // HRK
 	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = 10;
+	trajectoryParameters[motor_i].amplitude = -5;
+	trajectoryParameters[motor_i].frequency = 1.5;
 
 	motor_i = 1;  // HLK
 	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = -10;
+	trajectoryParameters[motor_i].amplitude = 5;
+	trajectoryParameters[motor_i].frequency = 1.5;
 
 	motor_i = 2;  // HRHFE
 	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = -3;
+	trajectoryParameters[motor_i].amplitude = -5;
+	trajectoryParameters[motor_i].frequency = 1.5;
 
 	motor_i = 3;  // HLHFE
 	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = 3;
+	trajectoryParameters[motor_i].amplitude = 5;
+	trajectoryParameters[motor_i].frequency = 1.5;
 
 	motor_i = 4;  // HRHAA
-	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = -3;
+	trajectoryParameters[motor_i].active = 0;
+	trajectoryParameters[motor_i].amplitude = -1;
+	trajectoryParameters[motor_i].frequency = 1;
 
 	motor_i = 5;  // HLHAA
-	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = -3;
+	trajectoryParameters[motor_i].active = 0;
+	trajectoryParameters[motor_i].amplitude = -1;
+	trajectoryParameters[motor_i].frequency = 1;
 
 
 	motor_i = 6;  // FRHFE
-	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].amplitude = 3;
 
 	motor_i = 7;  // FLHFE
-	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].amplitude = -3;
 
-	motor_i = 8;  // FRHFE
-	trajectoryParameters[motor_i].active = 1;
+	motor_i = 8;  // FRK
+	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].amplitude = 10;
 
-	motor_i = 9;  // FLHFE
-	trajectoryParameters[motor_i].active = 1;
+	motor_i = 9;  // FLK
+	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].amplitude = -10;
 
 	motor_i = 10;  // FRHAA
-	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].amplitude = -3;
 
 	motor_i = 11;  // FLHAA
-	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].amplitude = -3;
 
 
@@ -205,8 +213,8 @@ int main(int argc, char **argv)
 					if (robot_if.motors[i].IsEnabled() && trajectoryParameters[i].active)
 					{
 
-						double ref = trajectoryGenerator.sinePos(init_pos[i], trajectoryParameters[i].amplitude, trajectoryParameters[i].freq, t);
-						double v_ref = trajectoryGenerator.sineVel(init_pos[i], trajectoryParameters[i].amplitude, trajectoryParameters[i].freq, t);
+						double ref = trajectoryGenerator.sinePos(init_pos[i], trajectoryParameters[i], t);
+						double v_ref = trajectoryGenerator.sineVel(init_pos[i], trajectoryParameters[i], t);
 						robot_if.motors[i].SetCurrentReference(0.);
 						robot_if.motors[i].SetPositionReference(ref);
 						robot_if.motors[i].SetVelocityReference(v_ref);

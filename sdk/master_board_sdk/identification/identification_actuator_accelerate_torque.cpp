@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 	double iq_sat_pos = 8.00;
 	double iq_sat_neg = -8.00;
 	double init_pos[N_SLAVES * 2] = {0};
-	double current = 9.0;
+	double current = 8.5;
 	double maxVelocity = 300;   // maximum allowed velocity before emergency stop
 
 	std::ostringstream streamObj3;   	// Create an output string stream
@@ -63,7 +63,7 @@ int main(int argc, char **argv)
 		// loggerIMU.initImuLog();	 // write header in log file
 		for (int i=0; i<N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD; i++)  // create files for motor logging
 		{
-			loggerMotor[i].createFile("identification_actuator_accelerate_FRK_uboard1b_" + current_str + "A_" + std::to_string(i) + ".log");
+			loggerMotor[i].createFile("identification_actuator_accelerate_FRK_uboard1b_flywheel2_" + current_str + "A_" + std::to_string(i) + ".log");
 			loggerMotor[i].initMotorLog();
 		}
 	}
