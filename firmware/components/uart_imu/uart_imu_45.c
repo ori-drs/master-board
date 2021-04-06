@@ -227,18 +227,74 @@ int imu_init()
   /* init imu */
   printf("initialising Lord Microstrain 3DM-GX4-45 IMU\n");
   
-    // ************ commands for IMU 3DM-GX4-45 ************
-    // default baud rate of the IMU is 115200 baud.
-    // 75 65 7F 04 04 10 01 02 74 BD      // Attempting to set communications mode to IMU Direct mode
-    // 75 65 7F 4 4 10 2 2 75 BF    // ask for mode 
+
+  // ************ commands for IMU 3DM-GX4-45 ************
+  // default baud rate of the IMU is 115200 baud.
+
+  // 75 65 7F 04 04 10 01 02 74 BD      // Attempting to set communications mode to IMU Direct mode
   const char cmd0[10] = {0x75, 0x65, 0x7F, 0x04, 0x04, 0x10, 0x01, 0x02, 0x74, 0xBD};
+  uart_write_bytes(UART_NUM, cmd0, sizeof(cmd0));
+  printf("Attempting to set communications mode to IMU Direct mode\n");
+  vTaskDelay(50);
+
+  // 75 65 7F 4 4 10 2 2 75 BF    // ask for mode 
   const char cmd1[10] = {0x75, 0x65, 0x7F, 0x04, 0x04, 0x10, 0x02, 0x02, 0x75, 0xBF};  
-    // 75 65 01 02 02 02 E1 C7          // Idling Device
+  uart_write_bytes(UART_NUM, cmd1, sizeof(cmd1));
+  printf("ask for mode\n");
+  vTaskDelay(50);
+
+  // 75 65 01 02 02 02 E1 C7          // Idling Device
   const char cmd2[8] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x02, 0xE1, 0xC7};
-    // 75 65 01 02 02 01 E0 C6          // pinging device
+  uart_write_bytes(UART_NUM, cmd2, sizeof(cmd2));
+  printf("Idling Device\n");
+  vTaskDelay(50);
+  uart_flush_input(UART_NUM);
+
+
+  // setup interrupt handler
+  uart_flush_input(UART_NUM);
+  uart_set_rx_timeout(UART_NUM, 5); //timeout in symbols
+  // release the pre registered UART handler/subroutine
+  uart_isr_free(UART_NUM);
+  // register new UART subroutine
+  uart_isr_register(UART_NUM, uart_intr_handle, NULL, ESP_INTR_FLAG_IRAM, &handle_console);
+  // enable RX interrupt
+
+
+
+  // // 75 65 01 02 02 01 E0 C6          // pinging device
   const char cmd3[8] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x01, 0xE0, 0xC6};
-    // 75 65 0C 0A 0A 08 01 02 04 00 64 05 00 64 D6 62     // Setting the AHRS message format: acc+gyr scaled with 0x64 stream format at ????Hz
+  // uart_write_bytes(UART_NUM, cmd3, sizeof(cmd3));
+  // printf("pinging device\n");
+  // vTaskDelay(100);
+  // printf("buffer ptr: %X\t", rxbuf[0]); printf("%d\t", rxbuf[1]); printf("%d\t", rxbuf[2]); printf("%d\t", rxbuf[3]);
+  // printf("%d\t", rxbuf[4]);  printf("%d\t", rxbuf[5]);  printf("%d\t", rxbuf[6]);  printf("%d\t", rxbuf[7]);
+  // printf("%d\t", rxbuf[8]);  printf("%d\t", rxbuf[9]);  printf("%d\t", rxbuf[10]);  printf("%d\n", rxbuf[11]);
+
+
+  // set IMU to 921600 bauds
+  // NOT WORKDING, IMU NOT RESPONDING TO HIGH BUAD RATE PING
+  const char cmd4[13] = {0x75, 0x65, 0x0C, 0x07, 0x07, 0x40, 0x01, 0x00, 0x0E, 0x10, 0x00, 0x53, 0x9D}; // 921600 bauds
+  uart_write_bytes(UART_NUM, cmd4, sizeof(cmd4));
+  printf("set IMU to 921600 bauds\n");
+  vTaskDelay(100);
+  uart_set_baudrate(UART_NUM, 921600);
+  vTaskDelay(100);
+
+  // 75 65 01 02 02 01 E0 C6          // pinging device
+  // uart_write_bytes(UART_NUM, cmd3, sizeof(cmd3));
+  printf("pinging device\n");
+  vTaskDelay(100);
+  printf("buffer ptr: %X\t", rxbuf[0]); printf("%d\t", rxbuf[1]); printf("%d\t", rxbuf[2]); printf("%d\t", rxbuf[3]);
+  printf("%d\t", rxbuf[4]);  printf("%d\t", rxbuf[5]);  printf("%d\t", rxbuf[6]);  printf("%d\t", rxbuf[7]);
+  printf("%d\t", rxbuf[8]);  printf("%d\t", rxbuf[9]);  printf("%d\t", rxbuf[10]);  printf("%d\n", rxbuf[11]);
+
+
+
+  // 75 65 0C 0A 0A 08 01 02 04 00 64 05 00 64 D6 62     // Setting the AHRS message format: acc+gyr scaled with 0x64 stream format at ????Hz
   // const char cmd4[8] = {0x75, 0x65, 0x0C, 0x0A, 0x0A, 0x08, 0x01, 0x02, 0x04, 0x00, 0x64, 0x05, 0x00, 0x64, 0xD6, 0x62};
+
+
 
 
     // ************ commands for IMU 3DM-CX5-25 ************
@@ -251,13 +307,13 @@ int imu_init()
     // 75 65 01 02 02 06 E5 CB                           // Resume the Device (is it needed?)
   
     // const char cmd0[9] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x02, 0xE1, 0xC7, 0xBD};
-  // const char cmd1[16] = {}; //IMU 1000Hz
-  // const char cmd2[16] = {0x75, 0x65, 0x0C, 0x0A, 0x0A, 0x0A, 0x01, 0x02, 0x05, 0x00, 0x01, 0x0D, 0x00, 0x01, 0x1b, 0xa3}; //EF RPY + LinACC 500Hz
+  // const char cmd5[16] = {0x75, 0x65, 0x0C, 0x0A, 0x0A, 0x08, 0x01, 0x02, 0x04, 0x00, 0x01, 0x05, 0x00, 0x01, 0x10, 0x73}; //IMU 1000Hz
+  // const char cmd6[16] = {0x75, 0x65, 0x0C, 0x0A, 0x0A, 0x0A, 0x01, 0x02, 0x05, 0x00, 0x01, 0x0D, 0x00, 0x01, 0x1b, 0xa3}; //EF RPY + LinACC 500Hz
 
-  // const char cmd3[16] = {0x75, 0x65, 0x0C, 0x0A, 0x05, 0x11, 0x01, 0x01, 0x01, 0x05, 0x11, 0x01, 0x03, 0x01, 0x24, 0xCC};
-  // const char cmd4[12] = {0x75, 0x65, 0x0D, 0x06, 0x06, 0x03, 0x00, 0x00, 0x00, 0x00, 0xF6, 0xE4};
-  // const char cmd5[8] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x06, 0xE5, 0xCB};
-  // const char cmd6[13] = {0x75, 0x65, 0x0C, 0x07, 0x07, 0x40, 0x01, 0x00, 0x0E, 0x10, 0x00, 0x53, 0x9D}; // 921600 bauds
+  // const char cmd7[16] = {0x75, 0x65, 0x0C, 0x0A, 0x05, 0x11, 0x01, 0x01, 0x01, 0x05, 0x11, 0x01, 0x03, 0x01, 0x24, 0xCC};
+  // const char cmd8[12] = {0x75, 0x65, 0x0D, 0x06, 0x06, 0x03, 0x00, 0x00, 0x00, 0x00, 0xF6, 0xE4};
+  // const char cmd9[8] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x06, 0xE5, 0xCB};
+  // const char cmd10[13] = {0x75, 0x65, 0x0C, 0x07, 0x07, 0x40, 0x01, 0x00, 0x0E, 0x10, 0x00, 0x53, 0x9D}; // 921600 bauds
 
   vTaskDelay(30);
   // printf("Attempting to set communications mode to IMU Direct mode");
@@ -268,37 +324,32 @@ int imu_init()
   // uart_write_bytes(UART_NUM, cmd1, sizeof(cmd1));
   // uart_flush_input(UART_NUM);
   // vTaskDelay(100);
-  while(1)
-  {
     // printf("idle device");
     // uart_write_bytes(UART_NUM, cmd1, sizeof(cmd1));
-    printf("direct mode\n");
-    uart_write_bytes(UART_NUM, cmd0, sizeof(cmd0));
-    vTaskDelay(10);
-    uart_write_bytes(UART_NUM, cmd1, sizeof(cmd1));
-    vTaskDelay(10);
-    uart_write_bytes(UART_NUM, cmd2, sizeof(cmd2));
-    vTaskDelay(10);
-    uart_write_bytes(UART_NUM, cmd3, sizeof(cmd3));
-    vTaskDelay(10);
-    uart_flush_input(UART_NUM);
-    printf(" intr_cpt:%d\n", intr_cpt);
-  }
+  vTaskDelay(50);
+  // uart_write_bytes(UART_NUM, cmd4, sizeof(cmd2));
+  // printf("Setting the AHRS message format\n");
+  // uart_write_bytes(UART_NUM, cmd5, sizeof(cmd5));
+  // vTaskDelay(50);
+  // uart_write_bytes(UART_NUM, cmd6, sizeof(cmd6));
+  // vTaskDelay(50);
+  // uart_write_bytes(UART_NUM, cmd7, sizeof(cmd7));
+  // vTaskDelay(50);
+  // uart_write_bytes(UART_NUM, cmd8, sizeof(cmd8));
+  // vTaskDelay(50);
+  // uart_write_bytes(UART_NUM, cmd9, sizeof(cmd9));
+  // vTaskDelay(50);
+  // uart_write_bytes(UART_NUM, cmd10, sizeof(cmd10));
+  // vTaskDelay(50);
+
+  uart_flush_input(UART_NUM);
 
 
 
 
   // uart_write_bytes(UART_NUM, cmd6, sizeof(cmd6));
   // vTaskDelay(1);
-  // uart_flush_input(UART_NUM);
-  // uart_set_baudrate(UART_NUM, 921600);
-  // uart_set_rx_timeout(UART_NUM, 5); //timeout in symbols
-  // // release the pre registered UART handler/subroutine
-  // uart_isr_free(UART_NUM);
-  // // register new UART subroutine
-  // uart_isr_register(UART_NUM, uart_intr_handle, NULL, ESP_INTR_FLAG_IRAM, &handle_console);
-  // // enable RX interrupt
-  // vTaskDelay(10);
+  vTaskDelay(10);
   // printf("Done\n");
   // uart_write_bytes(UART_NUM, cmd1, sizeof(cmd1));
   // //vTaskDelay(10);
@@ -314,9 +365,12 @@ int imu_init()
 
   while (1) //for debug
   {
-    printf(" intr_cpt:%d\n", intr_cpt);
+    uart_write_bytes(UART_NUM, cmd3, sizeof(cmd3));   // ping device
+    // printf("pinging device\n");
+    printf("intr cpt: %d\n", intr_cpt);
+    // printf("buffer ptr: %d\n", rxbuf[0]);
     parse_IMU_data();
-    print_imu();
+    // print_imu();
     vTaskDelay(100);
   }
   return 0;
