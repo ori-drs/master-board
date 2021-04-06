@@ -273,7 +273,7 @@ int imu_init()
 
 
   // set IMU to 921600 bauds
-  // NOT WORKDING, IMU NOT RESPONDING TO HIGH BUAD RATE PING
+  // NOT WORKING, IMU NOT RESPONDING TO HIGH BAUD RATE PING
   const char cmd4[13] = {0x75, 0x65, 0x0C, 0x07, 0x07, 0x40, 0x01, 0x00, 0x0E, 0x10, 0x00, 0x53, 0x9D}; // 921600 bauds
   uart_write_bytes(UART_NUM, cmd4, sizeof(cmd4));
   printf("set IMU to 921600 bauds\n");
@@ -292,7 +292,11 @@ int imu_init()
 
 
   // 75 65 0C 0A 0A 08 01 02 04 00 64 05 00 64 D6 62     // Setting the AHRS message format: acc+gyr scaled with 0x64 stream format at ????Hz
-  // const char cmd4[8] = {0x75, 0x65, 0x0C, 0x0A, 0x0A, 0x08, 0x01, 0x02, 0x04, 0x00, 0x64, 0x05, 0x00, 0x64, 0xD6, 0x62};
+  const char cmd5[16] = {0x75, 0x65, 0x0C, 0x0A, 0x0A, 0x08, 0x01, 0x02, 0x04, 0x00, 0x64, 0x05, 0x00, 0x64, 0xD6, 0x62};
+  uart_write_bytes(UART_NUM, cmd5, sizeof(cmd5));
+  printf("Setting the AHRS message format: acc+gyr scaled with 0x64 stream format at ????Hz\n");
+  vTaskDelay(50);
+
 
 
 
@@ -315,7 +319,7 @@ int imu_init()
   // const char cmd9[8] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x06, 0xE5, 0xCB};
   // const char cmd10[13] = {0x75, 0x65, 0x0C, 0x07, 0x07, 0x40, 0x01, 0x00, 0x0E, 0x10, 0x00, 0x53, 0x9D}; // 921600 bauds
 
-  vTaskDelay(30);
+
   // printf("Attempting to set communications mode to IMU Direct mode");
   // uart_write_bytes(UART_NUM, cmd0, sizeof(cmd0));
   // uart_flush_input(UART_NUM);
@@ -326,7 +330,7 @@ int imu_init()
   // vTaskDelay(100);
     // printf("idle device");
     // uart_write_bytes(UART_NUM, cmd1, sizeof(cmd1));
-  vTaskDelay(50);
+
   // uart_write_bytes(UART_NUM, cmd4, sizeof(cmd2));
   // printf("Setting the AHRS message format\n");
   // uart_write_bytes(UART_NUM, cmd5, sizeof(cmd5));
@@ -342,14 +346,12 @@ int imu_init()
   // uart_write_bytes(UART_NUM, cmd10, sizeof(cmd10));
   // vTaskDelay(50);
 
-  uart_flush_input(UART_NUM);
 
 
 
 
   // uart_write_bytes(UART_NUM, cmd6, sizeof(cmd6));
   // vTaskDelay(1);
-  vTaskDelay(10);
   // printf("Done\n");
   // uart_write_bytes(UART_NUM, cmd1, sizeof(cmd1));
   // //vTaskDelay(10);
