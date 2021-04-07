@@ -272,12 +272,14 @@ int imu_init()
   // printf("%d\t", rxbuf[8]);  printf("%d\t", rxbuf[9]);  printf("%d\t", rxbuf[10]);  printf("%d\n", rxbuf[11]);
 
 
-  // set IMU to 921600 bauds
+  // set IMU and UART of master board to 921600 bauds
   // NOT WORKING, IMU NOT RESPONDING TO HIGH BAUD RATE PING
-  const char cmd4[13] = {0x75, 0x65, 0x0C, 0x07, 0x07, 0x40, 0x01, 0x00, 0x0E, 0x10, 0x00, 0x53, 0x9D}; // 921600 bauds
-  uart_write_bytes(UART_NUM, cmd4, sizeof(cmd4));
-  printf("set IMU to 921600 bauds\n");
-  vTaskDelay(100);
+  // NOTE: imu baud rate can be set in the mip software and then stored as startup "load setting"
+  // const char cmd4[13] = {0x75, 0x65, 0x0C, 0x07, 0x07, 0x40, 0x01, 0x00, 0x0E, 0x10, 0x00, 0x53, 0x9D}; // 921600 bauds
+  // uart_write_bytes(UART_NUM, cmd4, sizeof(cmd4));
+  // printf("set IMU to 921600 bauds\n");
+  // vTaskDelay(100);
+  printf("set UART at master board to 921600 bauds\n");
   uart_set_baudrate(UART_NUM, 921600);
   vTaskDelay(100);
 
@@ -292,10 +294,10 @@ int imu_init()
 
 
   // 75 65 0C 0A 0A 08 01 02 04 00 64 05 00 64 D6 62     // Setting the AHRS message format: acc+gyr scaled with 0x64 stream format at ????Hz
-  const char cmd5[16] = {0x75, 0x65, 0x0C, 0x0A, 0x0A, 0x08, 0x01, 0x02, 0x04, 0x00, 0x64, 0x05, 0x00, 0x64, 0xD6, 0x62};
-  uart_write_bytes(UART_NUM, cmd5, sizeof(cmd5));
-  printf("Setting the AHRS message format: acc+gyr scaled with 0x64 stream format at ????Hz\n");
-  vTaskDelay(50);
+  // const char cmd5[16] = {0x75, 0x65, 0x0C, 0x0A, 0x0A, 0x08, 0x01, 0x02, 0x04, 0x00, 0x64, 0x05, 0x00, 0x64, 0xD6, 0x62};
+  // uart_write_bytes(UART_NUM, cmd5, sizeof(cmd5));
+  // printf("Setting the AHRS message format: acc+gyr scaled with 0x64 stream format at ????Hz\n");
+  // vTaskDelay(50);
 
 
 
