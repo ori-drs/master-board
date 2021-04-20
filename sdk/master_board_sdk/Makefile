@@ -17,6 +17,11 @@ default: all
 	mkdir -p build
 	$(CC) $(CFLAGS) $(INCLUDES) -o build/$@ -c $^
 
+
+calibration: calibration.o ESPNOW_manager.o ESPNOW_types.o Link_manager.o ETHERNET_types.o master_board_interface.o motor.o motor_driver.o logger.o trajectoryGenerator.o
+	mkdir -p bin
+	$(CC) $(CFLAGS) -o bin/calibration $(addprefix build/,$^) -pthread
+
 example: example.o ESPNOW_manager.o ESPNOW_types.o Link_manager.o ETHERNET_types.o master_board_interface.o motor.o motor_driver.o logger.o trajectoryGenerator.o identification_actuator_sine_position_pd.o
 	mkdir -p bin
 	$(CC) $(CFLAGS) -o bin/example $(addprefix build/,$^) -pthread
@@ -53,6 +58,11 @@ identification_actuator_constant_velocity_pd: identification_actuator_constant_v
 	mkdir -p bin
 	$(CC) $(CFLAGS) -o bin/identification_actuator_constant_velocity_pd $(addprefix build/,$^) -pthread
 
+identification_robot: identification_robot.o ESPNOW_manager.o ESPNOW_types.o Link_manager.o ETHERNET_types.o master_board_interface.o motor.o motor_driver.o logger.o trajectoryGenerator.o
+	mkdir -p bin
+	$(CC) $(CFLAGS) -o bin/identification_robot $(addprefix build/,$^) -pthread
+
+
 playground: playground.o ESPNOW_manager.o ESPNOW_types.o Link_manager.o ETHERNET_types.o master_board_interface.o motor.o motor_driver.o logger.o trajectoryGenerator.o
 	mkdir -p bin
 	$(CC) $(CFLAGS) -o bin/playground $(addprefix build/,$^) -pthread
@@ -61,7 +71,11 @@ display_actuator: display_actuator.o ESPNOW_manager.o ESPNOW_types.o Link_manage
 	mkdir -p bin
 	$(CC) $(CFLAGS) -o bin/display_actuator $(addprefix build/,$^) -pthread
 
-all: clear clean example example_pd example_pd_motor identification_actuator_static identification_actuator_sine_current identification_actuator_accelerate_torque identification_actuator_accelerate_position_pd identification_actuator_constant_velocity_pd
+move_to_initial_position: move_to_initial_position.o ESPNOW_manager.o ESPNOW_types.o Link_manager.o ETHERNET_types.o master_board_interface.o motor.o motor_driver.o logger.o trajectoryGenerator.o
+	mkdir -p bin
+	$(CC) $(CFLAGS) -o bin/move_to_initial_position $(addprefix build/,$^) -pthread
+
+all: clear clean example example_pd example_pd_motor identification_actuator_static identification_actuator_sine_current identification_actuator_accelerate_torque identification_actuator_accelerate_position_pd identification_actuator_constant_velocity_pd identification_robot calibration move_to_initial_position
 
 play: clear clean playground
 
