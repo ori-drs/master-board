@@ -29,7 +29,7 @@ double TrajectoryGenerator::sineVel(TrajectoryParameters para, double t)
 double TrajectoryGenerator::frequency(TrajectoryParameters para, double t)
 {
     double frequency_ = para.frequencyStart + para.frequencyInclination*t;
-    if (frequency_ <= para.frequencyEnd)
+    if (frequency_ > para.frequencyEnd)
         frequency_ = para.frequencyEnd;
     return frequency_;
 }

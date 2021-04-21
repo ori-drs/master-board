@@ -45,7 +45,8 @@ int main(int argc, char **argv)
 	double t = 0;
 	double kp = 5.;
 	double kd = 0.1;
-	double iq_sat = 2.0;
+	double iq_sat = 8.0;
+	double iq_sat_for_initialization = 2.0;
 	double freq = 0.6;
 	double amplitude = 4*M_PI;
 	int state = 0;
@@ -64,59 +65,87 @@ int main(int argc, char **argv)
 
 	motor_i = HRHAA;
 	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].amplitude = 3;
+	trajectoryParameters[motor_i].amplitude = 7.;
+    trajectoryParameters[motor_i].frequencyStart = 0.5;
+    trajectoryParameters[motor_i].frequencyInclination = 0.01;
+	trajectoryParameters[motor_i].frequencyEnd = 1.0;
+	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
+	trajectoryParameters[motor_i].start_pos = 3*M_PI/16*GEAR_RATIO;
+
 
 	motor_i = HRHFE;
 	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].amplitude = 3;
+	trajectoryParameters[motor_i].amplitude = 6.0;
+    trajectoryParameters[motor_i].frequencyStart = 0.2;
+    trajectoryParameters[motor_i].frequencyInclination = 0.01;
+	trajectoryParameters[motor_i].frequencyEnd = 0.8;
+	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
+	trajectoryParameters[motor_i].start_pos = -0*M_PI/16*GEAR_RATIO;
 
 	motor_i = HRK;
 	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].amplitude = 3;
+	trajectoryParameters[motor_i].amplitude = -15.0;
+    trajectoryParameters[motor_i].frequencyStart = 0.8;
+    trajectoryParameters[motor_i].frequencyInclination = 0.01;
+	trajectoryParameters[motor_i].frequencyEnd = 1.2;
+	trajectoryParameters[motor_i].phaseshift = 0;
+	trajectoryParameters[motor_i].start_pos = 0;
 
 
 
 	motor_i = HLHAA;
 	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].amplitude = -1;
-	trajectoryParameters[motor_i].frequencyEnd = 1;
+	trajectoryParameters[motor_i].amplitude = 7.;
+    trajectoryParameters[motor_i].frequencyStart = 0.5;
+    trajectoryParameters[motor_i].frequencyInclination = 0.01;
+	trajectoryParameters[motor_i].frequencyEnd = 1.0;
+	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
+	trajectoryParameters[motor_i].start_pos = 3*M_PI/16*GEAR_RATIO;
 
 	motor_i = HLHFE;
 	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].amplitude = 5;
-	trajectoryParameters[motor_i].frequencyEnd = 1.5;
+	trajectoryParameters[motor_i].amplitude = 6.0;
+    trajectoryParameters[motor_i].frequencyStart = 0.2;
+    trajectoryParameters[motor_i].frequencyInclination = 0.01;
+	trajectoryParameters[motor_i].frequencyEnd = 0.8;
+	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
+	trajectoryParameters[motor_i].start_pos = -0*M_PI/16*GEAR_RATIO;
 
 	motor_i = HLK;
 	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].amplitude = 5;
-	trajectoryParameters[motor_i].frequencyEnd = 1.5;
+	trajectoryParameters[motor_i].amplitude = -15.0;
+    trajectoryParameters[motor_i].frequencyStart = 0.8;
+    trajectoryParameters[motor_i].frequencyInclination = 0.01;
+	trajectoryParameters[motor_i].frequencyEnd = 1.2;
+	trajectoryParameters[motor_i].phaseshift = 0;
+	trajectoryParameters[motor_i].start_pos = 0;
 
 
 
 	motor_i = FRHAA;
 	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = 1.;
+	trajectoryParameters[motor_i].amplitude = 7.;
     trajectoryParameters[motor_i].frequencyStart = 0.5;
-    trajectoryParameters[motor_i].frequencyInclination = 0.0;
-	trajectoryParameters[motor_i].frequencyEnd = 1.1;
+    trajectoryParameters[motor_i].frequencyInclination = 0.01;
+	trajectoryParameters[motor_i].frequencyEnd = 1.0;
 	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
 	trajectoryParameters[motor_i].start_pos = 3*M_PI/16*GEAR_RATIO;
 
 	motor_i = FRHFE;
 	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = 1.0;
+	trajectoryParameters[motor_i].amplitude = 6.0;
     trajectoryParameters[motor_i].frequencyStart = 0.2;
-    trajectoryParameters[motor_i].frequencyInclination = 0.0;
-	trajectoryParameters[motor_i].frequencyEnd = 1.8;
+    trajectoryParameters[motor_i].frequencyInclination = 0.01;
+	trajectoryParameters[motor_i].frequencyEnd = 0.8;
 	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
 	trajectoryParameters[motor_i].start_pos = -0*M_PI/16*GEAR_RATIO;
 
 	motor_i = FRK;
 	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = -1.0;
-    trajectoryParameters[motor_i].frequencyStart = 0.1;
-    trajectoryParameters[motor_i].frequencyInclination = 0.0;
-	trajectoryParameters[motor_i].frequencyEnd = 0.7;
+	trajectoryParameters[motor_i].amplitude = -15.0;
+    trajectoryParameters[motor_i].frequencyStart = 0.8;
+    trajectoryParameters[motor_i].frequencyInclination = 0.01;
+	trajectoryParameters[motor_i].frequencyEnd = 1.2;
 	trajectoryParameters[motor_i].phaseshift = 0;
 	trajectoryParameters[motor_i].start_pos = 0;
 
@@ -124,23 +153,29 @@ int main(int argc, char **argv)
 
 
 	motor_i = FLHAA;
-	trajectoryParameters[motor_i].active = 0;
+	trajectoryParameters[motor_i].active = 1;
 	trajectoryParameters[motor_i].amplitude = 7.;
-	trajectoryParameters[motor_i].frequencyEnd = 1.1;
+    trajectoryParameters[motor_i].frequencyStart = 0.5;
+    trajectoryParameters[motor_i].frequencyInclination = 0.01;
+	trajectoryParameters[motor_i].frequencyEnd = 1.0;
 	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
 	trajectoryParameters[motor_i].start_pos = 3*M_PI/16*GEAR_RATIO;
 
 	motor_i = FLHFE;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].amplitude = 8.0;
-	trajectoryParameters[motor_i].frequencyEnd = 1.8;
+	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].amplitude = 6.0;
+    trajectoryParameters[motor_i].frequencyStart = 0.2;
+    trajectoryParameters[motor_i].frequencyInclination = 0.01;
+	trajectoryParameters[motor_i].frequencyEnd = 0.8;
 	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
 	trajectoryParameters[motor_i].start_pos = -0*M_PI/16*GEAR_RATIO;
 
 	motor_i = FLK;
-	trajectoryParameters[motor_i].active = 0;
+	trajectoryParameters[motor_i].active = 1;
 	trajectoryParameters[motor_i].amplitude = -15.0;
-	trajectoryParameters[motor_i].frequencyEnd = 0.7;
+    trajectoryParameters[motor_i].frequencyStart = 0.8;
+    trajectoryParameters[motor_i].frequencyInclination = 0.01;
+	trajectoryParameters[motor_i].frequencyEnd = 1.2;
 	trajectoryParameters[motor_i].phaseshift = 0;
 	trajectoryParameters[motor_i].start_pos = 0;
 
@@ -178,8 +213,8 @@ int main(int argc, char **argv)
 		robot_if.motor_drivers[i].motor2->set_kd(kd);
 
 		// Set the maximum current controlled by the card.
-		robot_if.motor_drivers[i].motor1->set_current_sat(iq_sat);
-		robot_if.motor_drivers[i].motor2->set_current_sat(iq_sat);
+		robot_if.motor_drivers[i].motor1->set_current_sat(iq_sat_for_initialization);
+		robot_if.motor_drivers[i].motor2->set_current_sat(iq_sat_for_initialization);
 		
 		robot_if.motor_drivers[i].EnablePositionRolloverError();
 		robot_if.motor_drivers[i].SetTimeout(5);

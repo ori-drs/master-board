@@ -75,7 +75,11 @@ move_to_initial_position: move_to_initial_position.o ESPNOW_manager.o ESPNOW_typ
 	mkdir -p bin
 	$(CC) $(CFLAGS) -o bin/move_to_initial_position $(addprefix build/,$^) -pthread
 
-all: clear clean example example_pd example_pd_motor identification_actuator_static identification_actuator_sine_current identification_actuator_accelerate_torque identification_actuator_accelerate_position_pd identification_actuator_constant_velocity_pd identification_robot calibration move_to_initial_position
+move_individual_joints: move_individual_joints.o ESPNOW_manager.o ESPNOW_types.o Link_manager.o ETHERNET_types.o master_board_interface.o motor.o motor_driver.o logger.o trajectoryGenerator.o
+	mkdir -p bin
+	$(CC) $(CFLAGS) -o bin/move_individual_joints $(addprefix build/,$^) -pthread
+
+all: clear clean example example_pd example_pd_motor identification_actuator_static identification_actuator_sine_current identification_actuator_accelerate_torque identification_actuator_accelerate_position_pd identification_actuator_constant_velocity_pd identification_robot calibration move_to_initial_position move_individual_joints
 
 play: clear clean playground
 
