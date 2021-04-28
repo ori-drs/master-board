@@ -4,9 +4,16 @@ Install esp-idf
 --------
 The master board is based on a ESP32 module programmed in C++ using the expressif idf SDK https://github.com/espressif/esp-idf
 
-To install the SDK simply follow the instruction form https://docs.espressif.com/projects/esp-idf/en/stable/get-started/.
+To install the SDK follow the instruction form https://docs.espressif.com/projects/esp-idf/en/stable/get-started/.
+
+**Note** : Using **Python2**, you need to install packages at specific versions before running the installation: `pip install python-socketio==1.5.0 Flask-SocketIO==2.9`
 
 Please checkout the github issue about the esp-idf version: https://github.com/open-dynamic-robot-initiative/master-board/issues/3.
+i.e. checkout this commit:
+```
+git checkout 8d1a9c0 # Need to checkout this old version for now
+git submodule update --init --recursive
+```
 
 Firmware of the ESP32 can be found here https://github.com/open-dynamic-robot-initiative/master-board.
 
@@ -30,15 +37,22 @@ On a freshly assembled board, we first need to burn a configuration fuse  becaus
 
 `python espefuse.py set_flash_voltage 3.3V`
 
-To flash the board, the esp environment variables must be sourced and a special branch must be checked out. Assuming the `esp-idf` installation is under `~/esp/esp-idf`:
+To flash the board, the esp environment variables must be sourced:
+- Either you installed esp_idf in the standard path and you can simply do:
+  ```
+  cd master-board/firmware
+  source setup_esp_idf.bash
+  ```
+- Or a special branch must be checked out. Assuming the `esp-idf` installation is under `~/esp/esp-idf`:
+  ```
+  cd ~/esp/esp-idf
+  git checkout v4.0 # The export.sh is only available at newer versions.
+  git submodule update --init --recursive
+  source export.sh
+  git checkout 8d1a9c0 # Need to checkout this old version for now
+  git submodule update --init --recursive
+  ```
 
-```
-cd ~/esp/esp-idf
-git checkout v4.0 # The export.sh is only available at newer versions.
-source export.sh
-git checkout 8d1a9c0 # Need to checkout this old version for now
-git submodule update --init --recursive
-```
 
 Then, from the `master-board/firmware` folder, you can run:
 
