@@ -9,13 +9,15 @@ class Motor;
 class Logger
 {
 public:
-  void createFile(const std::string& fileName);
-  void initMotorLog();
-  void writeMotorLog(double timestamp, Motor motor);
-  void initImuLog();
+  Logger(int nMotors);
+  void createFiles();
+  void initLogs();
+  void writeMotorLog(double timestamp, Motor motor, int motorNr);
   void writeImuLog(double timestamp, MasterBoardInterface robot_if);
-  void closeFile();
+  void closeFiles();
 
 private:
-  std::ofstream Logfile;
+  int _nMotors;
+  std::ofstream LogfileMotors[24];
+  std::ofstream LogfileIMU;
 };
