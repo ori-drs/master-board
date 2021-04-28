@@ -108,7 +108,11 @@ int main(int argc, char **argv)
 				{
 					if (i % 2 == 0)
 					{
-						if (!robot_if.motor_drivers[i / N_MOTORS_PER_BOARD].is_connected) continue; // ignoring the motors of a disconnected slave
+						if (!robot_if.motor_drivers[i / N_MOTORS_PER_BOARD].is_connected) 
+						{
+							printf("one/some motor driver not connected\n");
+							continue; // ignoring the motors of a disconnected slave
+						}
 
 						// making sure that the transaction with the corresponding µdriver board succeeded
 						if (robot_if.motor_drivers[i / N_MOTORS_PER_BOARD].error_code == 0xf)

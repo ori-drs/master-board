@@ -1,10 +1,15 @@
+/* this program moves every joint individual a little bit in a direction. This
+offers the possibility to see if the logging matches to the real movements. Just import
+the log files into the evaluation script and see if the movements in its replay fits
+to the movements the robot does in real. Espacially for the directions of the joints */ 
+
 #include <assert.h>
 #include <unistd.h>
 #include <chrono>
 #include <math.h>
 #include <stdio.h>
 #include <sys/stat.h>
- #include <curses.h>
+#include <curses.h>
 
 #include "master_board_sdk/master_board_interface.h"
 #include "master_board_sdk/defines.h"
@@ -45,7 +50,7 @@ int main(int argc, char **argv)
 	double t = 0;
 	double kp = 5.;
 	double kd = 0.1;
-	double iq_sat = 8.0;
+	double iq_sat = 2.0;
 	double iq_sat_for_initialization = 2.0;
 	double freq = 0.6;
 	double amplitude = 4*M_PI;
@@ -53,132 +58,35 @@ int main(int argc, char **argv)
 	bool flag_logging = true;  // enable (true) or disable (false) the logging
     double dx = 2.0;    // velocity for slow moving to desired init position
     int motor_i = 0;
-    bool motor_at_zero_position[12];
     double pos_error = 0;
     double goal_position = 0;
+    int activeMotor = 0;
+    bool motor_at_zero_position[12];
+    double pos_start[12];
+    double current[12];
+    char delimiter;
 
 	// trajectory tracking
 	TrajectoryGenerator trajectoryGenerator;
 	TrajectoryParameters trajectoryParameters[N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD];  // The variable p1 is declared with 'Point'
+
+    std::fstream trajectoryTorqueFile;
+    // trajectoryTorqueFile.open("ValidationTrajectoryEstimatedTorque_FL.out", std::ios_base::in);
+    trajectoryTorqueFile.open("ValidationTrajectoryURDFTorque_FL.out", std::ios_base::in);
+    while (!trajectoryTorqueFile.is_open());
+
+    std::fstream trajectoryPositionFile;
+    // trajectoryPositionFile.open("ValidationTrajectoryEstimatedQ_FL.out", std::ios_base::in);
+    trajectoryPositionFile.open("ValidationTrajectoryURDFQ_FL.out", std::ios_base::in);
+    while (!trajectoryPositionFile.is_open());
+
     std::fstream calibrationFile;
     calibrationFile.open ("calibration.bin", std::ios_base::in);
     while (!calibrationFile.is_open());
 
-	motor_i = HRHAA;
-	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = 7.;
-    trajectoryParameters[motor_i].frequencyStart = 0.5;
-    trajectoryParameters[motor_i].frequencyInclination = 0.01;
-	trajectoryParameters[motor_i].frequencyEnd = 1.0;
-	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
-	trajectoryParameters[motor_i].start_pos = 3*M_PI/16*GEAR_RATIO;
-
-
-	motor_i = HRHFE;
-	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = 6.0;
-    trajectoryParameters[motor_i].frequencyStart = 0.2;
-    trajectoryParameters[motor_i].frequencyInclination = 0.01;
-	trajectoryParameters[motor_i].frequencyEnd = 0.8;
-	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
-	trajectoryParameters[motor_i].start_pos = -0*M_PI/16*GEAR_RATIO;
-
-	motor_i = HRK;
-	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = -15.0;
-    trajectoryParameters[motor_i].frequencyStart = 0.8;
-    trajectoryParameters[motor_i].frequencyInclination = 0.01;
-	trajectoryParameters[motor_i].frequencyEnd = 1.2;
-	trajectoryParameters[motor_i].phaseshift = 0;
-	trajectoryParameters[motor_i].start_pos = 0;
 
 
 
-	motor_i = HLHAA;
-	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = 7.;
-    trajectoryParameters[motor_i].frequencyStart = 0.5;
-    trajectoryParameters[motor_i].frequencyInclination = 0.01;
-	trajectoryParameters[motor_i].frequencyEnd = 1.0;
-	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
-	trajectoryParameters[motor_i].start_pos = 3*M_PI/16*GEAR_RATIO;
-
-	motor_i = HLHFE;
-	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = 6.0;
-    trajectoryParameters[motor_i].frequencyStart = 0.2;
-    trajectoryParameters[motor_i].frequencyInclination = 0.01;
-	trajectoryParameters[motor_i].frequencyEnd = 0.8;
-	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
-	trajectoryParameters[motor_i].start_pos = -0*M_PI/16*GEAR_RATIO;
-
-	motor_i = HLK;
-	trajectoryParameters[motor_i].active = 1;
-	trajectoryParameters[motor_i].amplitude = -15.0;
-    trajectoryParameters[motor_i].frequencyStart = 0.8;
-    trajectoryParameters[motor_i].frequencyInclination = 0.01;
-	trajectoryParameters[motor_i].frequencyEnd = 1.2;
-	trajectoryParameters[motor_i].phaseshift = 0;
-	trajectoryParameters[motor_i].start_pos = 0;
-
-
-
-	motor_i = FRHAA;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].amplitude = 7.;
-    trajectoryParameters[motor_i].frequencyStart = 0.5;
-    trajectoryParameters[motor_i].frequencyInclination = 0.01;
-	trajectoryParameters[motor_i].frequencyEnd = 1.0;
-	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
-	trajectoryParameters[motor_i].start_pos = 3*M_PI/16*GEAR_RATIO;
-
-	motor_i = FRHFE;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].amplitude = 6.0;
-    trajectoryParameters[motor_i].frequencyStart = 0.2;
-    trajectoryParameters[motor_i].frequencyInclination = 0.01;
-	trajectoryParameters[motor_i].frequencyEnd = 0.8;
-	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
-	trajectoryParameters[motor_i].start_pos = -0*M_PI/16*GEAR_RATIO;
-
-	motor_i = FRK;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].amplitude = -15.0;
-    trajectoryParameters[motor_i].frequencyStart = 0.8;
-    trajectoryParameters[motor_i].frequencyInclination = 0.01;
-	trajectoryParameters[motor_i].frequencyEnd = 1.2;
-	trajectoryParameters[motor_i].phaseshift = 0;
-	trajectoryParameters[motor_i].start_pos = 0;
-
-
-
-
-	motor_i = FLHAA;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].amplitude = 7.;
-    trajectoryParameters[motor_i].frequencyStart = 0.5;
-    trajectoryParameters[motor_i].frequencyInclination = 0.01;
-	trajectoryParameters[motor_i].frequencyEnd = 1.0;
-	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
-	trajectoryParameters[motor_i].start_pos = 3*M_PI/16*GEAR_RATIO;
-
-	motor_i = FLHFE;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].amplitude = 6.0;
-    trajectoryParameters[motor_i].frequencyStart = 0.2;
-    trajectoryParameters[motor_i].frequencyInclination = 0.01;
-	trajectoryParameters[motor_i].frequencyEnd = 0.8;
-	trajectoryParameters[motor_i].phaseshift = 0;//M_PI/4;
-	trajectoryParameters[motor_i].start_pos = -0*M_PI/16*GEAR_RATIO;
-
-	motor_i = FLK;
-	trajectoryParameters[motor_i].active = 0;
-	trajectoryParameters[motor_i].amplitude = -15.0;
-    trajectoryParameters[motor_i].frequencyStart = 0.8;
-    trajectoryParameters[motor_i].frequencyInclination = 0.01;
-	trajectoryParameters[motor_i].frequencyEnd = 1.2;
-	trajectoryParameters[motor_i].phaseshift = 0;
-	trajectoryParameters[motor_i].start_pos = 0;
 
 
 	nice(-20); //give the process a high priority
@@ -188,7 +96,7 @@ int main(int argc, char **argv)
 
 	Logger loggerIMU;	// create logger for IMU
 	Logger loggerMotor[N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD];   // create logger for motors
-	if(flag_logging) // if flag for logging is true
+	if(flag_logging)    // if flag for logging is true
 	{
 		loggerIMU.createFile("example_IMU.log");  // create logger file
 		loggerIMU.initImuLog();	 // write header in log file
@@ -282,40 +190,40 @@ int main(int argc, char **argv)
 				break;
 
 
-            // ****************** drive slowly to zero position ******************
+            // ****************** drive slowly to start position ******************
             case 2:
                 t = 0;
+                pos_start[0]=0; pos_start[1]=0; pos_start[2]=0; pos_start[3]=0; pos_start[4]=0;  pos_start[5]=0; 
+                pos_start[6]=0; pos_start[7]=0; pos_start[8]=0; pos_start[9]=0; pos_start[10]=0; pos_start[11]=0; 
+                trajectoryPositionFile >> pos_start[FLHAA] >> delimiter >> pos_start[FLHFE] >> delimiter >> pos_start[FLK];
                 state = 3;
                 break;
             case 3:
                 state = 4;
                 for (int i = 0; i < N_SLAVES_CONTROLED * 2; i++)
-				{                    
+				{
 					//if (robot_if.motors[i].IsEnabled())
 					{
-                        goal_position = trajectoryGenerator.sinePos(trajectoryParameters[i], 0);
-                        // goal_position = trajectoryParameters[i].zero_pos;   
+                        goal_position = trajectoryParameters[i].zero_pos + 9*pos_start[i];
                         pos_error = goal_position - robot_if.motors[i].GetPosition();
                         printf("%f\t", pos_error);
-						double ref;
+                        double ref = 0;
+                        double vref = 0;
                         if (abs(pos_error) > 0.1*dx && !motor_at_zero_position[i])
                         {
-							// printf("test0\n");
                             state = 3;
-							// printf("test1\n");
                             ref = trajectoryParameters[i].startupPosition + t*dx*sgn(pos_error);  // new position in direction to init_pos
-							printf("test2\n");
-							// printf("test3\n");
+                            vref = 0;
                         }
 						else
 						{
                             motor_at_zero_position[i] = 1;
                             ref = goal_position;
+                            vref = 0;
 						}
-						double v_ref = 0;
-						robot_if.motors[i].SetCurrentReference(0.);
-						robot_if.motors[i].SetPositionReference(ref);
-						robot_if.motors[i].SetVelocityReference(v_ref);
+                        robot_if.motors[i].SetCurrentReference(0.);
+                        robot_if.motors[i].SetPositionReference(ref);
+                        robot_if.motors[i].SetVelocityReference(vref);
 					}
 				}
 				printf("\n");
@@ -324,17 +232,33 @@ int main(int argc, char **argv)
             // ****************** play trajectory ******************
             case 4:
                 t = 0;
+                state = 5;
 				for (int i = 0; i < N_SLAVES_CONTROLED; i++)
 				{
 					// Set the maximum current controlled by the card.
 					robot_if.motor_drivers[i].motor1->set_current_sat(iq_sat);
 					robot_if.motor_drivers[i].motor2->set_current_sat(iq_sat);
-				}
-
-                state = 5;
+                    robot_if.motor_drivers[i].motor1->set_kp(0.0);
+                    robot_if.motor_drivers[i].motor2->set_kp(0.0);
+                    robot_if.motor_drivers[i].motor1->set_kd(0.0);
+                    robot_if.motor_drivers[i].motor2->set_kd(0.0);
+				};
                 break;
 			case 5:
-				//closed loop, position
+                if (t > 3.960)
+                {
+                    t=0;
+                    trajectoryPositionFile.clear();
+                    trajectoryPositionFile.seekg(0);
+                    trajectoryTorqueFile.clear();
+                    trajectoryTorqueFile.seekg(0);
+                }
+                current[0] = 0; current[1] = 0; current[2] = 0; current[3] = 0; current[4] = 0;  current[5] = 0; 
+                current[6] = 0; current[7] = 0; current[8] = 0; current[9] = 0; current[10] = 0; current[11] = 0;
+                trajectoryTorqueFile >> current[FLHAA] >> delimiter >> current[FLHFE] >> delimiter >> current[FLK];  // read one line
+                trajectoryPositionFile >> pos_start[FLHAA] >> delimiter >> pos_start[FLHFE] >> delimiter >> pos_start[FLK];
+                // printf("%f\t%f\t%f\n", current[FLHAA], current[FLHFE], current[FLK]);
+
 				if(flag_logging)
 					loggerIMU.writeImuLog(t, robot_if);    // log imu data
 					
@@ -347,7 +271,7 @@ int main(int argc, char **argv)
 						if (!robot_if.motor_drivers[i/2].is_connected) 
 						{
 							//printf("motor driver %d is not connected\n", i/2); // ignoring the motors of a disconnected slave
-							continue; 
+							continue;
 						}
 
 						// making sure that the transaction with the corresponding µdriver board succeeded
@@ -357,16 +281,32 @@ int main(int argc, char **argv)
 							continue; //user should decide what to do in that case, here we ignore that motor
 						}
 					}
-					if (robot_if.motors[i].IsEnabled() && trajectoryParameters[i].active)
+					if (robot_if.motors[i].IsEnabled())
 					{
-						double ref = trajectoryGenerator.sinePos(trajectoryParameters[i], t);
-						double v_ref = 0;  //trajectoryGenerator.sineVel(trajectoryParameters[i], t);
-						robot_if.motors[i].SetCurrentReference(0.);
-						robot_if.motors[i].SetPositionReference(ref);
-						robot_if.motors[i].SetVelocityReference(v_ref);
+                        double ref = trajectoryParameters[i].zero_pos + 9*pos_start[i];
+
+
+
+
+
+						// double v_ref = 0;
+						// double p_err = ref - robot_if.motors[i].GetPosition();
+						// double v_err = v_ref - robot_if.motors[i].GetVelocity();
+						// double cur = current[i] + kp * p_err + kd * v_err;  // PD controller with sine curve tracking
+
+                        double cur = current[i];
+
+
+
+
+                        // robot_if.motors[i].SetPositionReference(ref);
+						robot_if.motors[i].SetCurrentReference(cur);
 					}
 				}
 				break;
+            case 7:
+                while(1);
+                break;
 			}
 			
 			if (cpt % 100 == 0)
