@@ -13,13 +13,17 @@ default: all
 	mkdir -p build
 	$(CC) $(CFLAGS) $(INCLUDES) -o build/$@ -c $^
 
-app: example.o ESPNOW_manager.o ESPNOW_types.o Link_manager.o ETHERNET_types.o master_board_interface.o motor.o motor_driver.o
+app: example.o ESPNOW_manager.o ESPNOW_types.o Link_manager.o ETHERNET_types.o master_board_interface.o motor.o motor_driver.o logger.o
 	mkdir -p bin
 	$(CC) $(CFLAGS) -o bin/example $(addprefix build/,$^) -pthread
 
-app_pd: example_pd.o ESPNOW_manager.o ESPNOW_types.o Link_manager.o ETHERNET_types.o master_board_interface.o motor.o motor_driver.o
+app_pd: example_pd.o ESPNOW_manager.o ESPNOW_types.o Link_manager.o ETHERNET_types.o master_board_interface.o motor.o motor_driver.o logger.o
 	mkdir -p bin
 	$(CC) $(CFLAGS) -o bin/example_pd $(addprefix build/,$^) -pthread
+
+display_actuator: display_actuator.o ESPNOW_manager.o ESPNOW_types.o Link_manager.o ETHERNET_types.o master_board_interface.o motor.o motor_driver.o logger.o
+	mkdir -p bin
+	$(CC) $(CFLAGS) -o bin/display_actuator $(addprefix build/,$^) -pthread
 
 all: clear clean app app_pd
 
