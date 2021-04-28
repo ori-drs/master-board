@@ -43,33 +43,15 @@ int main(int argc, char **argv)
 	int cpt = 0;
 	double dt = 0.001;
 	double t = 0;
-	double kp = 5.;
-	double kd = 0.1;
 	double iq_sat = 0.0;
-	double freq = 0.6;
-	double amplitude = 4*M_PI;
 	int state = 0;
-	bool flag_logging = true;  // enable (true) or disable (false) the logging
-    double dx = 0.0001;    // velocity for slow moving to desired init position
-    int motor_i = 0;
-    double pos_error = 0;
 	double timer_end = 0;
 
 	// trajectory tracking
-	TrajectoryGenerator trajectoryGenerator;
 	TrajectoryParameters trajectoryParameters[N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD];  // The variable p1 is declared with 'Point'
     std::ofstream calibrationFile;
     calibrationFile.open ("calibration.bin");
     while (!calibrationFile.is_open());
-
-
-	// motor_i = HRHAA;
-	// trajectoryParameters[motor_i].active = 1;
-	// trajectoryParameters[motor_i].amplitude = -1;
-	// trajectoryParameters[motor_i].frequency = 1;
-	// trajectoryParameters[motor_i].phaseshift = M_PI/4;
-	// trajectoryParameters[motor_i].init_pos = M_PI/4;
-
 
 
 
@@ -77,19 +59,6 @@ int main(int argc, char **argv)
 	printf("-- Main --\n");
 	MasterBoardInterface robot_if(argv[1]);
 	robot_if.Init();
-
-	Logger loggerIMU;	// create logger for IMU
-	Logger loggerMotor[N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD];   // create logger for motors
-	if(flag_logging) // if flag for logging is true
-	{
-		loggerIMU.createFile("example_IMU.log");  // create logger file
-		loggerIMU.initImuLog();	 // write header in log file
-		for (int i=0; i<N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD; i++)  // create files for motor logging
-		{
-			loggerMotor[i].createFile("example_Motor" + std::to_string(i) + ".log");
-			loggerMotor[i].initMotorLog();
-		}
-	}
 
 	//Initialisation, send the init commands
 	for (int i = 0; i < N_SLAVES_CONTROLED; i++)

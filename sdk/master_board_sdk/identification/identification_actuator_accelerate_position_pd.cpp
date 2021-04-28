@@ -37,17 +37,11 @@ int main(int argc, char **argv)
 	MasterBoardInterface robot_if(argv[1]);
 	robot_if.Init();
 
-	Logger loggerIMU;	// create logger for IMU
-	Logger loggerMotor[N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD];   // create logger for motors
+	Logger logger(N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD);   // create logger
 	if(flag_logging) // if flag for logging is true
 	{
-		loggerIMU.createFile("example_IMU.log");  // create logger file
-		loggerIMU.initImuLog();	 // write header in log file
-		for (int i=0; i<N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD; i++)  // create files for motor logging
-		{
-			loggerMotor[i].createFile("example_Motor" + std::to_string(i) + ".log");
-			loggerMotor[i].initMotorLog();
-		}
+		logger.createFiles();  // create logger file
+		logger.initLogs();	 // write header in log file
 	}
 
 	//Initialisation, send the init commands
@@ -120,7 +114,7 @@ int main(int argc, char **argv)
 			case 1:
 				//closed loop, position
 				if(flag_logging)
-					loggerIMU.writeImuLog(t, robot_if);    // log imu data
+					logger.writeImuLog(t, robot_if);    // log imu data
 				for (int i = 0; i < N_SLAVES_CONTROLED * 2; i++)
 				{
 					if (i % 2 == 0)
@@ -147,7 +141,7 @@ int main(int argc, char **argv)
 						robot_if.motors[i].SetPositionReference(ref);
 						robot_if.motors[i].SetVelocityReference(v_ref);
 						if(flag_logging)
-							loggerMotor[i].writeMotorLog(t,robot_if.motors[i]);  // log motor status
+							logger.writeMotorLog(t,robot_if.motors[i],i);  // log motor status
 					}
 				}
 				break;
