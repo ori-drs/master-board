@@ -65,7 +65,7 @@ int main(int argc, char **argv)
     while (!calibrationFile.is_open());
 
 	motor_i = HRHAA;
-	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].amplitude = 7.;
     trajectoryParameters[motor_i].frequencyStart = 0.5;
     trajectoryParameters[motor_i].frequencyInclination = 0.01;
@@ -75,7 +75,7 @@ int main(int argc, char **argv)
 
 
 	motor_i = HRHFE;
-	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].amplitude = 6.0;
     trajectoryParameters[motor_i].frequencyStart = 0.2;
     trajectoryParameters[motor_i].frequencyInclination = 0.01;
@@ -84,7 +84,7 @@ int main(int argc, char **argv)
 	trajectoryParameters[motor_i].start_pos = -0*M_PI/16*GEAR_RATIO;
 
 	motor_i = HRK;
-	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].amplitude = -15.0;
     trajectoryParameters[motor_i].frequencyStart = 0.8;
     trajectoryParameters[motor_i].frequencyInclination = 0.01;
@@ -95,7 +95,7 @@ int main(int argc, char **argv)
 
 
 	motor_i = HLHAA;
-	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].amplitude = 7.;
     trajectoryParameters[motor_i].frequencyStart = 0.5;
     trajectoryParameters[motor_i].frequencyInclination = 0.01;
@@ -104,7 +104,7 @@ int main(int argc, char **argv)
 	trajectoryParameters[motor_i].start_pos = 3*M_PI/16*GEAR_RATIO;
 
 	motor_i = HLHFE;
-	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].amplitude = 6.0;
     trajectoryParameters[motor_i].frequencyStart = 0.2;
     trajectoryParameters[motor_i].frequencyInclination = 0.01;
@@ -113,7 +113,7 @@ int main(int argc, char **argv)
 	trajectoryParameters[motor_i].start_pos = -0*M_PI/16*GEAR_RATIO;
 
 	motor_i = HLK;
-	trajectoryParameters[motor_i].active = 1;
+	trajectoryParameters[motor_i].active = 0;
 	trajectoryParameters[motor_i].amplitude = -15.0;
     trajectoryParameters[motor_i].frequencyStart = 0.8;
     trajectoryParameters[motor_i].frequencyInclination = 0.01;
@@ -124,7 +124,7 @@ int main(int argc, char **argv)
 
 
 	motor_i = FRHAA;
-	trajectoryParameters[motor_i].active = 0;
+	trajectoryParameters[motor_i].active = 1;
 	trajectoryParameters[motor_i].amplitude = 7.;
     trajectoryParameters[motor_i].frequencyStart = 0.5;
     trajectoryParameters[motor_i].frequencyInclination = 0.01;
@@ -133,7 +133,7 @@ int main(int argc, char **argv)
 	trajectoryParameters[motor_i].start_pos = 3*M_PI/16*GEAR_RATIO;
 
 	motor_i = FRHFE;
-	trajectoryParameters[motor_i].active = 0;
+	trajectoryParameters[motor_i].active = 1;
 	trajectoryParameters[motor_i].amplitude = 6.0;
     trajectoryParameters[motor_i].frequencyStart = 0.2;
     trajectoryParameters[motor_i].frequencyInclination = 0.01;
@@ -142,7 +142,7 @@ int main(int argc, char **argv)
 	trajectoryParameters[motor_i].start_pos = -0*M_PI/16*GEAR_RATIO;
 
 	motor_i = FRK;
-	trajectoryParameters[motor_i].active = 0;
+	trajectoryParameters[motor_i].active = 1;
 	trajectoryParameters[motor_i].amplitude = -15.0;
     trajectoryParameters[motor_i].frequencyStart = 0.8;
     trajectoryParameters[motor_i].frequencyInclination = 0.01;
@@ -154,7 +154,7 @@ int main(int argc, char **argv)
 
 
 	motor_i = FLHAA;
-	trajectoryParameters[motor_i].active = 0;
+	trajectoryParameters[motor_i].active = 1;
 	trajectoryParameters[motor_i].amplitude = 7.;
     trajectoryParameters[motor_i].frequencyStart = 0.5;
     trajectoryParameters[motor_i].frequencyInclination = 0.01;
@@ -163,7 +163,7 @@ int main(int argc, char **argv)
 	trajectoryParameters[motor_i].start_pos = 3*M_PI/16*GEAR_RATIO;
 
 	motor_i = FLHFE;
-	trajectoryParameters[motor_i].active = 0;
+	trajectoryParameters[motor_i].active = 1;
 	trajectoryParameters[motor_i].amplitude = 6.0;
     trajectoryParameters[motor_i].frequencyStart = 0.2;
     trajectoryParameters[motor_i].frequencyInclination = 0.01;
@@ -172,7 +172,7 @@ int main(int argc, char **argv)
 	trajectoryParameters[motor_i].start_pos = -0*M_PI/16*GEAR_RATIO;
 
 	motor_i = FLK;
-	trajectoryParameters[motor_i].active = 0;
+	trajectoryParameters[motor_i].active = 1;
 	trajectoryParameters[motor_i].amplitude = -15.0;
     trajectoryParameters[motor_i].frequencyStart = 0.8;
     trajectoryParameters[motor_i].frequencyInclination = 0.01;

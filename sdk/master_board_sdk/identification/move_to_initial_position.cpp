@@ -69,17 +69,11 @@ int main(int argc, char **argv)
 	MasterBoardInterface robot_if(argv[1]);
 	robot_if.Init();
 
-	Logger loggerIMU;	// create logger for IMU
-	Logger loggerMotor[N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD];   // create logger for motors
+	Logger logger(N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD);   // create logger for motors
 	if(flag_logging) // if flag for logging is true
 	{
-		loggerIMU.createFile("example_IMU.log");  // create logger file
-		loggerIMU.initImuLog();	 // write header in log file
-		for (int i=0; i<N_SLAVES_CONTROLED*N_MOTORS_PER_BOARD; i++)  // create files for motor logging
-		{
-			loggerMotor[i].createFile("example_Motor" + std::to_string(i) + ".log");
-			loggerMotor[i].initMotorLog();
-		}
+		logger.createFiles();  // create logger file
+		logger.initLogs();	 // write header in log file
 	}
 
 	//Initialisation, send the init commands
