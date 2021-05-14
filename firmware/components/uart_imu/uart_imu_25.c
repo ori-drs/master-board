@@ -289,11 +289,10 @@ int imu_init()
 
   while (1) //for debug
   {
-    uart_write_bytes(UART_NUM, cmd3, sizeof(cmd3));
-    // printf(" intr_cpt:%d\n", intr_cpt);
+    printf(" intr_cpt:%d\n", intr_cpt);
     parse_IMU_data();
-    // print_imu();
-    vTaskDelay(10);
+    print_imu();
+    vTaskDelay(100);
   }
   return 0;
 }
