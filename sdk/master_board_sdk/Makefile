@@ -25,7 +25,7 @@ display_actuator: display_actuator.o ESPNOW_manager.o ESPNOW_types.o Link_manage
 	mkdir -p bin
 	$(CC) $(CFLAGS) -o bin/display_actuator $(addprefix build/,$^) -pthread
 
-all: clear clean app app_pd
+all: clear clean app app_pd display_actuator
 
 clean: 
 	#$(RM) build/*
