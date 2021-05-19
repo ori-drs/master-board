@@ -97,7 +97,7 @@ int main(int argc, char **argv)
 			case 1:
 				//closed loop, position
 				if(flag_logging)
-					logger.writeImuLog(t, robot_if);    // log imu data
+					logger.writeImuLog(t, &robot_if);    // log imu data
 				for (int i = 0; i < N_SLAVES_CONTROLED * N_MOTORS_PER_BOARD; i++)
 				{
 					if (i % 2 == 0)
