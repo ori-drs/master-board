@@ -235,7 +235,13 @@ int imu_init()
     75 65 0D 06 06 03 00 00 00 00 F6 E4               // set heading at 0
     75 65 01 02 02 06 E5 CB                           // Resume the Device (is it needed?)
   */
-  const char cmd0[8] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x02, 0xE1, 0xC7};
+  /* ####### set baud rate on master board for imu communicaiton */
+  // uart_set_baudrate(UART_NUM, 230400);
+  uart_set_baudrate(UART_NUM, 460800);    // maximum baud rate possible for the uart-com-adapter (faster frequency results in a noisy signal and communication fails)
+  // uart_set_baudrate(UART_NUM, 921600);
+
+
+  // const char cmd0[8] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x02, 0xE1, 0xC7};
   const char cmd1[16] = {0x75, 0x65, 0x0C, 0x0A, 0x0A, 0x08, 0x01, 0x02, 0x04, 0x00, 0x01, 0x05, 0x00, 0x01, 0x10, 0x73}; //IMU 1000Hz
   //const char cmd1[16] = {0x75, 0x65, 0x0C, 0x0A, 0x0A, 0x08, 0x01, 0x02, 0x04, 0x00, 0x0A, 0x05, 0x00, 0x0A, 0x22, 0xa0}; //IMU 100Hz
   //const char cmd2[13] = {0x75, 0x65, 0x0C, 0x07, 0x07, 0x0A, 0x01, 0x01, 0x05, 0x00, 0x01, 0x06, 0x23}; //EF RPY 500Hz
@@ -245,16 +251,20 @@ int imu_init()
   const char cmd3[16] = {0x75, 0x65, 0x0C, 0x0A, 0x05, 0x11, 0x01, 0x01, 0x01, 0x05, 0x11, 0x01, 0x03, 0x01, 0x24, 0xCC};
   const char cmd4[12] = {0x75, 0x65, 0x0D, 0x06, 0x06, 0x03, 0x00, 0x00, 0x00, 0x00, 0xF6, 0xE4};
   const char cmd5[8] = {0x75, 0x65, 0x01, 0x02, 0x02, 0x06, 0xE5, 0xCB};
-  const char cmd6[13] = {0x75, 0x65, 0x0C, 0x07, 0x07, 0x40, 0x01, 0x00, 0x0E, 0x10, 0x00, 0x53, 0x9D}; // 921600 bauds
+  // const char cmd6[13] = {0x75, 0x65, 0x0C, 0x07, 0x07, 0x40, 0x01, 0x00, 0x0E, 0x10, 0x00, 0x53, 0x9D}; // 921600 bauds
 
-  printf("sending new baud rate setting to the IMU \n");
-  vTaskDelay(30);
-  uart_write_bytes(UART_NUM, cmd0, sizeof(cmd0));
-  vTaskDelay(10);
-  uart_write_bytes(UART_NUM, cmd6, sizeof(cmd6));
-  vTaskDelay(1);
-  uart_flush_input(UART_NUM);
-  uart_set_baudrate(UART_NUM, 921600);
+  /* ######## send new baud rate to IMU ######## 
+   This commands are not active because baud rate on the imu should already pre-set by using the MIP software. 
+   Baud rate 460800 is the maximum working speed because the ttl-rs232-adapter cannot process faster signals. */
+  // printf("sending new baud rate setting to the IMU \n");
+  // vTaskDelay(30);
+  // uart_write_bytes(UART_NUM, cmd0, sizeof(cmd0));
+  // vTaskDelay(10);
+  // uart_write_bytes(UART_NUM, cmd6, sizeof(cmd6));
+  // vTaskDelay(1);
+  // uart_flush_input(UART_NUM);
+  // uart_set_baudrate(UART_NUM, 921600);
+  
   uart_set_rx_timeout(UART_NUM, 5); //timeout in symbols
   // release the pre registered UART handler/subroutine
   uart_isr_free(UART_NUM);
