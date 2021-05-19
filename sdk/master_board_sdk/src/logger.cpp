@@ -9,7 +9,7 @@
 * 	logger.createFiles();            // create files for the logger
 * 	logger.initLogs();               // write headline in file
 *   logger.writeMotorLog(timestamp, motor, motorNr)   // writes the log for motorNr
-*   logger.writeImuLog(timestamp, robot_if)   // writes the log for the IMU
+*   logger.writeImuLog(timestamp, &robot_if)   // writes the log for the IMU
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -84,6 +84,7 @@ void Logger::initLogs()
         this->LogfileMotors[i] << "kd [As/rad]";
         this->LogfileMotors[i] << "\n";
         this->LogfileMotors[i].flush();  // write to file
+    }
 
         this->LogfileIMU << "timestamp" << ";";
         this->LogfileIMU << "accelerometer x" << ";";
@@ -100,7 +101,6 @@ void Logger::initLogs()
         this->LogfileIMU << "linear acceleration z";
         this->LogfileIMU << "\n";  // end of measurement line
         this->LogfileIMU.flush();  // write to file
-    }
 }
 
 void Logger::writeMotorLog(double timestamp, Motor motor, int motorNr)
@@ -122,11 +122,11 @@ void Logger::writeMotorLog(double timestamp, Motor motor, int motorNr)
     this->LogfileMotors[i].flush();  // write to file
 }
 
-void Logger::writeImuLog(double timestamp, MasterBoardInterface robot_if)
+void Logger::writeImuLog(double timestamp, MasterBoardInterface *robot_if)
 {
     // stores the IMU measurements into log file
     int i = 0;
-    imu_data_t imu_data = robot_if.GetIMU();
+    imu_data_t imu_data = robot_if->GetIMU();
     this->LogfileIMU << timestamp << ";";
     this->LogfileIMU << imu_data.accelerometer[0] << ";";
     this->LogfileIMU << imu_data.accelerometer[1] << ";";
