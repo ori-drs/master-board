@@ -13,7 +13,7 @@ public:
   void createFiles();
   void initLogs();
   void writeMotorLog(double timestamp, Motor motor, int motorNr);
-  void writeImuLog(double timestamp, MasterBoardInterface robot_if);
+  void writeImuLog(double timestamp, MasterBoardInterface *robot_if);
   void closeFiles();
 
 private:

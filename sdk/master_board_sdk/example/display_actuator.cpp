@@ -97,14 +97,14 @@ int main(int argc, char **argv)
 			case 1:
 				//closed loop, position
 				if(flag_logging)
-					logger.writeImuLog(t, robot_if);    // log imu data
+					logger.writeImuLog(t, &robot_if);    // log imu data
 				for (int i = 0; i < N_SLAVES_CONTROLED * N_MOTORS_PER_BOARD; i++)
 				{
 					if (i % 2 == 0)
 					{
 						if (!robot_if.motor_drivers[i / N_MOTORS_PER_BOARD].is_connected) 
 						{
-							printf("one/some motor driver not connected\n");
+							// printf("one/some motor driver not connected\n");
 							continue; // ignoring the motors of a disconnected slave
 						}
 

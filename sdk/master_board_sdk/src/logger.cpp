@@ -30,7 +30,7 @@ Logger::Logger(int nMotors)
 void Logger::createFiles()
 {
     /* create files for each motor (12 for solo12) and for the IMU */
-    // get date and time as string
+    // get date and time as string and add it to the filename
     time_t rawtime;
     struct tm * timeinfo;
     char buffer[80];
@@ -45,7 +45,7 @@ void Logger::createFiles()
     std::string fileNameIMU = "IMU";        // name of file
     std::string motorNr;
     std::string date = str;
-    std::string extension = ".log";
+    std::string extension = ".csv";
     std::string fileNameMotorFull;
     std::string fileNameIMUFull;
     for(int i=0; i<this->_nMotors; i++)
@@ -84,23 +84,23 @@ void Logger::initLogs()
         this->LogfileMotors[i] << "kd [As/rad]";
         this->LogfileMotors[i] << "\n";
         this->LogfileMotors[i].flush();  // write to file
-
-        this->LogfileIMU << "timestamp" << ";";
-        this->LogfileIMU << "accelerometer x" << ";";
-        this->LogfileIMU << "accelerometer y" << ";";
-        this->LogfileIMU << "accelerometer z" << ";";
-        this->LogfileIMU << "gyroscope x" << ";";
-        this->LogfileIMU << "gyroscope y" << ";";
-        this->LogfileIMU << "gyroscope z" << ";";
-        this->LogfileIMU << "attitude roll" << ";";
-        this->LogfileIMU << "attitude pitch" << ";";
-        this->LogfileIMU << "attitude yaw" << ";";
-        this->LogfileIMU << "linear acceleration x" << ";";
-        this->LogfileIMU << "linear acceleration y" << ";";
-        this->LogfileIMU << "linear acceleration z";
-        this->LogfileIMU << "\n";  // end of measurement line
-        this->LogfileIMU.flush();  // write to file
     }
+    this->LogfileIMU << "timestamp" << ";";
+    this->LogfileIMU << "accelerometer x" << ";";
+    this->LogfileIMU << "accelerometer y" << ";";
+    this->LogfileIMU << "accelerometer z" << ";";
+    this->LogfileIMU << "gyroscope x" << ";";
+    this->LogfileIMU << "gyroscope y" << ";";
+    this->LogfileIMU << "gyroscope z" << ";";
+    this->LogfileIMU << "attitude roll" << ";";
+    this->LogfileIMU << "attitude pitch" << ";";
+    this->LogfileIMU << "attitude yaw" << ";";
+    this->LogfileIMU << "linear acceleration x" << ";";
+    this->LogfileIMU << "linear acceleration y" << ";";
+    this->LogfileIMU << "linear acceleration z";
+    this->LogfileIMU << "\n";  // end of measurement line
+    this->LogfileIMU.flush();  // write to file
+    
 }
 
 void Logger::writeMotorLog(double timestamp, Motor motor, int motorNr)
@@ -122,11 +122,11 @@ void Logger::writeMotorLog(double timestamp, Motor motor, int motorNr)
     this->LogfileMotors[i].flush();  // write to file
 }
 
-void Logger::writeImuLog(double timestamp, MasterBoardInterface robot_if)
+void Logger::writeImuLog(double timestamp, MasterBoardInterface *robot_if)
 {
     // stores the IMU measurements into log file
     int i = 0;
-    imu_data_t imu_data = robot_if.GetIMU();
+    imu_data_t imu_data = robot_if->GetIMU();
     this->LogfileIMU << timestamp << ";";
     this->LogfileIMU << imu_data.accelerometer[0] << ";";
     this->LogfileIMU << imu_data.accelerometer[1] << ";";
@@ -142,6 +142,8 @@ void Logger::writeImuLog(double timestamp, MasterBoardInterface robot_if)
     this->LogfileIMU << imu_data.linear_acceleration[2];
     this->LogfileIMU << "\n";  // end of measurement line
     this->LogfileIMU.flush();  // write to file
+    				fflush(stdout);
+
 }
 
 void Logger::closeFiles()
