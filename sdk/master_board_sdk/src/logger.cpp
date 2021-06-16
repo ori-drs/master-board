@@ -125,7 +125,6 @@ void Logger::writeMotorLog(double timestamp, Motor motor, int motorNr)
 void Logger::writeImuLog(double timestamp, MasterBoardInterface *robot_if)
 {
     // stores the IMU measurements into log file
-    int i = 0;
     imu_data_t imu_data = robot_if->GetIMU();
     this->LogfileIMU << timestamp << ";";
     this->LogfileIMU << imu_data.accelerometer[0] << ";";
