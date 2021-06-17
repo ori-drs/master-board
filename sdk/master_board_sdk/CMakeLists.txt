@@ -104,6 +104,8 @@ IF(BUILD_PYTHON_INTERFACE)
   PYTHON_BUILD(example com_analyser.py)
 ENDIF(BUILD_PYTHON_INTERFACE)
 
+# --- ROS DISCOVERABILITY ------------------------------------------------------
+install(FILES package.xml DESTINATION share/${PROJECT_NAME})
 
 # --- CHECK EXAMPLES -----------------------------------------------------------
 ADD_EXECUTABLE(master_board_example example/example.cpp)
